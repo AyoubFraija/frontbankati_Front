@@ -1,0 +1,112 @@
+<div class="login-root">
+  <div class="box-root flex-flex flex-direction--column" style="min-height: 100vh;flex-grow: 1;">
+    <div class="loginbackground box-background--white padding-top--64">
+      <div class="loginbackground-gridContainer">
+        <div class="box-root flex-flex" style="grid-area: top / start / 8 / end;">
+          <div class="box-root" style="background-image: linear-gradient(white 0%, rgb(247, 250, 252) 33%); flex-grow: 1;">
+          </div>
+        </div>
+        <div class="box-root flex-flex" style="grid-area: 4 / 2 / auto / 5;">
+          <div class="box-root box-divider--light-all-2 animationLeftRight tans3s" style="flex-grow: 1;"></div>
+        </div>
+        <div class="box-root flex-flex" style="grid-area: 6 / start / auto / 2;">
+          <div class="box-root box-background--blue800" style="flex-grow: 1;"></div>
+        </div>
+        <div class="box-root flex-flex" style="grid-area: 7 / start / auto / 4;">
+          <div class="box-root box-background--blue animationLeftRight" style="flex-grow: 1;"></div>
+        </div>
+        <div class="box-root flex-flex" style="grid-area: 8 / 4 / auto / 6;">
+          <div class="box-root box-background--gray100 animationLeftRight tans3s" style="flex-grow: 1;"></div>
+        </div>
+        <div class="box-root flex-flex" style="grid-area: 2 / 15 / auto / end;">
+          <div class="box-root box-background--cyan200 animationRightLeft tans4s" style="flex-grow: 1;"></div>
+        </div>
+        <div class="box-root flex-flex" style="grid-area: 3 / 14 / auto / end;">
+          <div class="box-root box-background--blue animationRightLeft" style="flex-grow: 1;"></div>
+        </div>
+        <div class="box-root flex-flex" style="grid-area: 4 / 17 / auto / 20;">
+          <div class="box-root box-background--gray100 animationRightLeft tans4s" style="flex-grow: 1;"></div>
+        </div>
+        <div class="box-root flex-flex" style="grid-area: 5 / 14 / auto / 17;">
+          <div class="box-root box-divider--light-all-2 animationRightLeft tans3s" style="flex-grow: 1;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="box-root padding-top--24 flex-flex flex-direction--column" style="flex-grow: 1; z-index: 9;">
+      <div class="box-root padding-top--24 padding-bottom--12 flex-flex flex-justifyContent--center">
+        <h1><a href="#" rel="dofollow">Jibi-Banque</a></h1>
+      </div>
+      <div class="formbg-outer">
+        <div class="formbg">
+          <div class="formbg-inner">
+            <div class="contact-form">
+              <form [formGroup]="agentForm" (ngSubmit)="onSubmit()">
+                <div class="field padding-bottom--24">
+                  <h3>Entrer Les Informations Agents</h3>
+                  <p>Veuillez entrer tous les champs sans exception</p>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="nom">Nom</label>
+                      <input type="text" id="nom" formControlName="lastName" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="prenom">Prénom</label>
+                      <input type="text" id="prenom" formControlName="firstName" required>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="produit">Sélectionner un produit</label>
+                    <select id="produit" formControlName="cin" required>
+                      <option value="" disabled selected>Choisissez un produit</option>
+                      <option value="CIN">Produit 1</option>
+                      <option value="Passport">Carte d'Identité</option>
+                      <option value="produit3">Passport</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="piece_identite">N° Pièce d'identité</label>
+                    <input type="text" id="piece_identite" formControlName="num_piece_identite" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="date_naissance">Date de naissance</label>
+                    <input type="date" id="date_naissance" formControlName="date_naissance" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" formControlName="email" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="confirm_email">Confirmation Email</label>
+                    <input type="email" id="confirm_email" formControlName="confirmEmail" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="telephone">Numéro de téléphone</label>
+                    <input type="tel" id="telephone" formControlName="telephone" required>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="immatriculation">N° d'immatriculation</label>
+                      <input type="text" id="immatriculation" formControlName="num_immatriculation">
+                    </div>
+                    <div class="form-group">
+                      <label for="patente">N° de patente</label>
+                      <input type="text" id="patente" formControlName="num_patente">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" formControlName="description" required></textarea>
+                  </div>
+                  <div class="form-actions">
+                    <button type="submit" class="submit-btn">Suivant</button>
+                    <button type="button" class="cancel-btn" (click)="cancel()">Annuler</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

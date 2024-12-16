@@ -1,0 +1,57 @@
+<div class="login-container">
+  <div class="login-image"></div>
+  <div class="login-form">
+    <div class="form-content">
+      <img src="assets/images/MyFinance.png" alt="MyFinance" class="logo">
+      <h1>Welcome to your online banking</h1>
+
+      <!-- Formulaire de connexion -->
+      <form (ngSubmit)="onLogin()">
+        <!-- Champ Email -->
+        <div class="form-group">
+          <input type="email"
+                 placeholder="Email"
+                 [(ngModel)]="credentials.email"
+                 name="email"
+                 required
+                 [ngClass]="{'is-invalid': errorMessage}">
+          <div *ngIf="errorMessage && !credentials.email" class="error-message">
+            {{ errorMessage }}
+          </div>
+        </div>
+
+        <!-- Champ Mot de passe -->
+        <div class="form-group password-input">
+          <input [type]="showPassword ? 'text' : 'password'"
+                 placeholder="Password"
+                 [(ngModel)]="credentials.password"
+                 name="password"
+                 required
+                 [ngClass]="{'is-invalid': errorMessage}">
+          <button type="button"
+                  class="toggle-password"
+                  (click)="togglePasswordVisibility()">
+            <i class="fas" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword"></i>
+          </button>
+        </div>
+
+        <button type="submit" class="sign-in-button">Sign In</button>
+
+        <div class="form-links">
+          <a href="#" class="forgot-password">Having trouble?</a>
+
+        </div>
+      </form>
+
+      <div class="form-footer">
+        <div class="links">
+          <a href="#">Terms of use</a>
+          <span class="separator">|</span>
+          <a href="#">Security</a>
+          <span class="separator">|</span>
+          <a href="#">Privacy</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

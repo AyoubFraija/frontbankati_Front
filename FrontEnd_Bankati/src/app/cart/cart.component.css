@@ -1,0 +1,273 @@
+body {
+  width: 100vw;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #d4edda;
+  font-family: 'Arial', sans-serif;
+  min-height: 100vh;
+}
+
+/* Sidebar styles */
+.sidebar {
+  width: 320px; /* Increased width */
+  background-color: #343a40;
+  color: white;
+  padding: 25px; /* Increased padding */
+  height: 100vh;
+  overflow-y: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-shadow: 3px 0 12px rgba(0, 0, 0, 0.1);
+  font-size: 1.45em;
+}
+
+.test {
+  margin-top: 70px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  padding: 20px 0; /* Increased padding */
+  border-bottom: 1px solid #444;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar li i {
+  margin-right: 15px; /* Larger icons */
+  font-size: 1.2em;
+}
+
+.card-container {
+  background: #34495e;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 600px;
+  position: relative;
+  box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.1);
+  border-bottom: 6px solid #2c3e50;
+  border-right: 6px solid #2c3e50;
+}
+
+.card {
+  position: relative;
+  padding-top: 60%;
+  overflow: hidden;
+}
+.card-container {
+  background: #34495e;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 600px;
+  position: relative;
+  box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.1);
+  border-bottom: 6px solid #2c3e50;
+  border-right: 6px solid #2c3e50;
+  transition: 0.5s transform, 0.5s box-shadow;
+  margin: 10px; /* Add spacing between cards */
+  flex: 1; /* Allow cards to take equal space */
+  min-width: 0; /* Prevent cards from shrinking too much */
+
+}
+
+@media screen and (max-width: 580px){
+  :root {
+    font-size: 12px;
+  }
+  .bank-name {
+    padding: 8px 15px;
+  }
+  .arrow {
+    border-top: 18px solid transparent;
+    border-bottom: 18px solid transparent;
+    border-right:15px solid white;
+  }
+}
+
+@media screen and (max-width: 460px){
+  :root {
+    font-size: 10px;
+  }
+  .bank-name {
+    padding: 5px 12px;
+  }
+  .arrow {
+    border-top: 13px solid transparent;
+    border-bottom: 13px solid transparent;
+    border-right:11px solid white;
+  }
+}
+
+@media screen and (max-width: 360px){
+  :root {
+    font-size: 8px;
+  }
+
+  .card-container {
+    border-bottom: 3px solid #2c3e50;
+    border-right: 3px solid #2c3e50;
+  }
+
+  .bank-name {
+    padding: 3px 8px;
+  }
+
+  .arrow {
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right:8px solid white;
+  }
+}
+.card {
+  position: relative;
+  padding-top: 60%;
+  overflow: hidden;
+}
+.chip {
+  position: absolute;
+  top: 35%;
+  left: 5%;
+  height: 23%;
+}
+
+.contactless {
+  position: absolute;
+  top: 40%;
+  left: 20%;
+  height: 15%;
+  transform: rotate(90deg);
+}
+
+.visa {
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  height: 30%;
+}
+.card-number {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  font-size: 2.5rem;
+  font-family: sans-serif;
+  color: white;
+  text-shadow: 0px 0px 5px black;
+}
+.arrow {
+  position: absolute;
+  top: 80%;
+  left: 5%;
+  width: 0;
+  height: 0;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-right:17px solid white;
+}
+.card-name, .card-expire {
+  position: absolute;
+  left: 10%;
+  font-family: sans-serif;
+  color: white;
+  text-transform: uppercase;
+  text-shadow: 0px 0px 3px black;
+}
+
+.card-name {
+  top: 74%;
+  font-size: 1.3rem;
+}
+
+.card-expire {
+  top: 82%;
+  font-size: 1rem;
+}
+.bank-name {
+  margin: 0;
+  display: inline-block;
+  padding: 10px 20px;
+  padding-left: 5%;
+  position: absolute;
+  top: 10%;
+  left: 0;
+  font-size: 1.5rem;
+  font-family: sans-serif;
+  color: black;
+  font-weight: bold;
+  background-color: white;
+  min-width: 30%;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+}
+.card::before {
+  content: "";
+  position: absolute;
+  display: inline-block;
+  background-color: white;
+  width: 50%;
+  height: 5%;
+  left: 0;
+  top: 26%;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  opacity: 0.5;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  display: block;
+  background-color: white;
+  width: 200px;
+  height: 200px;
+  right: -75px;
+  top:-75px;
+  border-radius: 50%;
+  opacity: 0.05;
+}
+.card-container:hover {
+  transform: scale(1.1) rotate(3deg);
+  box-shadow: 10px 10px 10px 5px rgba(0,0,0,0.3);
+}
+
+.card-container.blue {
+  background-color: #5cb85c; /* Example blue color */
+  border-bottom: 6px solid #4cae4c;
+  border-right: 6px solid #4cae4c;
+}
+
+.card-container.gray {
+  background-color: #99a3a4; /* Example gray color */
+  border-bottom: 6px solid #888;
+  border-right: 6px solid #888;
+}
+
+.card-container.gold {
+  background-color: #f0ad4e; /* Example gold color */
+  border-bottom: 6px solid #e7962d;
+  border-right: 6px solid #e7962d;
+}
+.card-container-wrapper {
+  display: flex; /* Use Flexbox for horizontal alignment */
+  width: 100%;
+  max-width: 1800px; /* Adjust as needed for card width */
+  margin-top: 20px; /* Add some spacing from sidebar */
+  display: flex;
+  justify-content: center; /* Centers items horizontally */
+  align-items: center; /* Centers items vertically (optional) */
+  margin-left: 300px;
+}

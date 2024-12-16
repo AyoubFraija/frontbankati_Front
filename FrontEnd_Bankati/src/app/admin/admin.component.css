@@ -1,0 +1,341 @@
+/* General container styling */
+.admin-container {
+  padding: 2rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 1550px;
+  margin-top: 30px;
+  margin-left: 600px;
+}
+body {
+  margin: 0;
+  background: #d4edda;
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  min-height: 100vh; /* Ensure body takes up full viewport height */
+  align-items: center; /* Vertically center content */
+}
+
+/* Sidebar styles */
+.sidebar {
+  width: 320px; /* Increased width */
+  background-color: #343a40;
+  color: white;
+  padding: 25px; /* Increased padding */
+  height: 100vh;
+  overflow-y: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-shadow: 3px 0 12px rgba(0, 0, 0, 0.1);
+  font-size: 1.45em;
+}
+
+.test {
+  margin-top: 70px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  padding: 20px 0; /* Increased padding */
+  border-bottom: 1px solid #444;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar li i {
+  margin-right: 15px; /* Larger icons */
+  font-size: 1.2em;
+}
+
+/* Title styling */
+.title {
+  font-size: 2rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+/* Add button styling */
+.add-button {
+  display: block;
+  margin: 0 auto 1rem auto;
+  background-color: #6c697c;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-button:hover {
+  background-color: #4fa42d;
+}
+
+/* Table styling */
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-table thead {
+  background-color: #374133;
+  color: white;
+}
+
+.user-table th,
+.user-table td {
+  padding: 0.8rem 1rem;
+  text-align: center;
+}
+
+.user-table th {
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.user-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* User photo styling */
+.user-photo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+}
+
+/* Button styling */
+.edit-button,
+.delete-button {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.edit-button {
+  background-color: #28a745;
+  color: white;
+  margin-right: 0.5rem;
+}
+
+.edit-button:hover {
+  background-color: #218838;
+}
+
+.delete-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #c82333;
+}
+
+/* Modal Styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  width: 80%;
+  max-width: 600px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  animation: slideIn 0.3s ease-out;
+  margin: 0 auto;
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-20%); }
+  to { transform: translateY(0); }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eaeaea;
+  padding-bottom: 15px;
+  text-align: center;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #333;
+  font-weight: 600;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #888;
+  transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+  color: #ff4d4f;
+}
+
+.modal-body {
+  display: flex;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.form-container {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+
+.form-left {
+  flex: 0 0 30%;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.form-right {
+  flex: 1;
+}
+
+.form-left label {
+  margin-bottom: 8px;
+  font-weight: bold; /* Make labels bolder */
+  color: #333; /* Darker gray for better contrast */
+}
+
+.form-right label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold; /* Make labels bolder */
+  color: #333; /* Darker gray for better contrast */
+}
+
+.form-right input {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  background-color: #f9f9f9; /* Light gray background */
+  color: #333; /* Darker text */
+}
+
+.form-right input:focus {
+  border-color: #40ff00;
+  outline: none;
+  box-shadow: 0 0 5px rgba(64, 255, 0, 0.5);
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  padding-top: 20px;
+  border-top: 1px solid #eaeaea;
+}
+
+.submit-btn, .cancel-btn {
+  padding: 10px 25px;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2); /* Add a subtle shadow */
+}
+
+.submit-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+.submit-btn:hover {
+  background-color: #0056b3;
+}
+
+.cancel-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.cancel-btn:hover {
+  background-color: #d32f2f;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .admin-container {
+    padding: 1rem;
+  }
+  .user-table th,
+  .user-table td {
+    padding: 0.6rem 0.8rem;
+  }
+  .modal-content {
+    width: 90%;
+    max-width: 400px;
+  }
+  .modal-body {
+    flex-direction: column;
+  }
+  .form-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .form-left,
+  .form-right {
+    flex: 1;
+  }
+}

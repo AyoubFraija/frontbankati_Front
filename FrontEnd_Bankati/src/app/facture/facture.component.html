@@ -1,0 +1,88 @@
+<body>
+<div class="container">
+  <div class="sidebar">
+    <div class="test">
+    <ul>
+      <li><a routerLink="/dashboard" style="color: white; text-decoration: none"><i class="fas fa-tachometer-alt" style="color: white"></i> Dashboard</a></li>
+      <li><a routerLink="/cart" style="color: white; text-decoration: none"><i class="fas fa-credit-card" style="color: white"></i> Bank Card</a></li>
+      <li  style="background-color: #3e8e41;"><a routerLink="/facture" style="color: white; text-decoration: none"><i class="fas fa-file-invoice" style="color: white"></i> Factures</a></li>
+      <li><a routerLink="/currency" style="color: white; text-decoration: none"><i class="fas fa-coins"></i> Converter</a></li>
+      <li><i class="fas fa-chart-bar" style="color: white"></i> Analytics</li>
+      <li><i class="fas fa-bookmark" style="color: white"></i> Bookmarks</li>
+      <li><i class="fas fa-cog" style="color: white"></i> Settings</li>
+      <li><i class="fas fa-user" style="color: white"></i> Profile</li>
+      <li><i class="fas fa-sign-out-alt" style="color: white"></i> Logout</li>
+    </ul>
+    </div>
+  </div>
+
+  <main>
+    <header>
+      <div class="company-info">
+        <div class="company-name">MyCompany</div>
+        <div class="rcs">RCS : 442441630</div>
+      </div>
+      <div class="contact-info">
+        <div class="icon"><i class="fas fa-map-marker-alt"></i></div> <div>19 Rue Edouard Vaillant 37000 Tours - France</div>
+        <div class="icon"><i class="fas fa-envelope"></i></div> <div>contactmycompany.com</div>
+        <div class="icon"><i class="fas fa-phone"></i></div> <div>02 47 68 48 69</div>
+      </div>
+      <div class="outstanding-amount">
+        <p>Montant restant dû :</p>
+        <span>13 000,00 €</span>
+      </div>
+    </header>
+
+    <section class="invoice-section">
+      <h2 style="text-align: center; margin-bottom: 50px">Consultez et réglez vos factures dues</h2>
+      <table>
+        <thead>
+        <tr>
+          <th></th>
+          <th>Paiement</th>
+          <th>Restant dû</th>
+          <th>Référence</th>
+          <th>Date d'émission</th>
+          <th>Date d'échu</th>
+          <th>Statut</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><input type="checkbox" id="chk1"></td>
+          <td>0,00 €</td>
+          <td>5 000 € / 5 000 €</td>
+          <td>#1234</td>
+          <td>01/09/2023</td>
+          <td>01/10/2023</td>
+          <td class="due"><span>À PAYER</span></td>
+          <td><i class="fas fa-search"></i></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" id="chk2"></td>
+          <td>0,00 €</td>
+          <td>5 000 € / 5 000 €</td>
+          <td>#5678</td>
+          <td>01/08/2023</td>
+          <td>01/09/2023</td>
+          <td class="due"><span>À PAYER</span></td>
+          <td><i class="fas fa-search"></i></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" id="chk3"></td>
+          <td>3 000,00 €</td>
+          <td>3 000 € / 5 000 €</td>
+          <td>#9101</td>
+          <td>01/06/2023</td>
+          <td>01/09/2023</td>
+          <td class="partial"><span>PARTIEL</span></td>
+          <td><i class="fas fa-search"></i></td>
+        </tr>
+        </tbody>
+      </table>
+      <button id="payButton">Payer les factures sélectionnées</button>
+    </section>
+  </main>
+</div>
+</body>
