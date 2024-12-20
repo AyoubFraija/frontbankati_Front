@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CommonModule, NgClass} from "@angular/common";
 import {FormsModule} from "@angular/forms";
+import {Router} from "@angular/router";
+import {AuthService} from "../service/Auth.service";
 
 @Component({
   selector: 'app-admin',
@@ -13,7 +15,17 @@ import {FormsModule} from "@angular/forms";
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.css'
 })
-export class AdminComponent {
+export class AdminComponent implements OnInit{
+  constructor(private authService: AuthService, private router: Router) {}
+  ngOnInit(): void {
+    // Vérifier si l'utilisateur est authentifié à chaque accès
+    if (!this.authService.isAuthenticated()) {
+      // Si l'utilisateur n'est pas authentifié, rediriger vers la page de login
+      this.router.navigate(['/login1']);
+    }
+  }
+
+
   users = [
     {
       id: 1,
@@ -35,7 +47,9 @@ export class AdminComponent {
   ];
 
   selectedUser: any = null;
-
+  goToCreateAgent(): void {
+    this.router.navigate(['/agent']);  // Redirige vers le formulaire de création d'agent
+  }
   // Add a new user
   addUser() {
     this.selectedUser = {

@@ -1,48 +1,127 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+// create-agent.component.ts
+import {Component, OnInit} from '@angular/core';
+import {FormsModule, NgForm} from '@angular/forms';
+import {NgForOf, NgIf} from "@angular/common";
+import {Router} from "@angular/router";
+import {AuthService} from "../service/Auth.service";
+import {AgentService} from "../service/agent.service";
+
 
 @Component({
   selector: 'app-create-agent',
   templateUrl: './create-agent.component.html',
-  styleUrls: ['./create-agent.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule]
+  imports: [
+    FormsModule,
+    NgIf,
+    NgForOf
+  ],
+  styleUrls: ['./create-agent.component.scss']
 })
 export class CreateAgentComponent implements OnInit {
-  agentForm: FormGroup;
-  agent: any = {};
-  email: string = '';
+  formData = {
+    lastname: '',
+    firstname: '',
+    email: '',
+    emailConfirmation: '',
+    phonenumber: '',
+    numCin: '',
+    address: '',
+    description: '',
+    birthdate: '',
+    numLicence: '',
+    numRegCom: '',
+    cinRecto: null as File | null,
+    cinVerso: null as File | null
+  };
 
-  constructor(private fb: FormBuilder, public router: Router) {
-    this.agentForm = this.fb.group({
-      lastName: ['', Validators.required],
-      firstName: ['', Validators.required],
-      cin: ['', Validators.required],
-      num_piece_identite: ['', Validators.required],
-      date_naissance: ['', Validators.required],
-      address: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      confirmEmail: ['', [Validators.required, Validators.email]],
-      telephone: ['', Validators.required],
-      num_immatriculation: [''],
-      num_patente: [''],
-      description: ['', Validators.required]
-    });
-  }
+  loading = false;
+  error = '';
+  success = '';
+  hasAccess = false;
+  constructor(
+    private agentService: AgentService,
+    private authService: AuthService,
+    private router: Router
+  ) {this.checkAccess();}
 
   ngOnInit(): void {
-  }
+    this.checkAccess();
+    }
+  private checkAccess(): void {
+    const userRoles = this.authService.getUserRole();
+    this.hasAccess = userRoles.includes('ROLE_ADMIN');
 
-  onSubmit() {
-    if (this.agentForm.valid) {
-      console.log(this.agentForm.value);
-      // Add your submission logic here
+    if (!this.hasAccess) {
+      this.router.navigate(['/total']);
     }
   }
 
-  cancel() {
-    this.agentForm.reset();
+
+  onFileSelected(event: any, fileType: 'cinRecto' | 'cinVerso') {
+    const file = event.target.files[0];
+    if (file) {
+      this.formData[fileType] = file;
+    }
   }
+
+  onSubmit(form: NgForm) {
+    if (form.valid && this.formData.cinRecto && this.formData.cinVerso) {
+      this.loading = true;
+      this.error = '';
+      this.success = '';
+      this.agentService.createAgent(
+        this.formData.lastname,
+        this.formData.firstname,
+        this.formData.email,
+        this.formData.emailConfirmation,
+        this.formData.numCin,
+        this.formData.address,
+        this.formData.phonenumber,
+        this.formData.description,
+        this.formData.cinRecto,
+        this.formData.cinVerso,
+        this.formData.birthdate,
+        Number(this.formData.numLicence),
+        Number(this.formData.numRegCom)
+
+      ).subscribe({
+        next: (response) => {
+          this.success = 'agent créé avec succès';
+          this.loading = false;
+          form.resetForm();
+          this.router.navigate(['/dashboard']);
+        },
+        error: (error) => {
+          this.error = error.error.message || 'Une erreur est survenue';
+          this.loading = false;
+        }
+      });
+    }
+  }
+  cancel() {
+    // Réinitialiser les données du formulaire
+    this.formData = {
+      lastname: '',
+      firstname: '',
+      email: '',
+      emailConfirmation: '',
+      numCin: '',
+      address: '',
+      phonenumber: '',
+      description: '',
+      cinRecto: null as File | null,
+      cinVerso: null as File | null,
+      birthdate: '',
+      numLicence: '',
+      numRegCom: ''
+    };
+
+    // Réinitialiser le formulaire NgForm
+    this.success = '';
+    this.error = '';
+    this.loading = false;
+  }
+
+
 }
