@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {Agent} from "../model/agent.model";
 
 
 @Injectable({
@@ -8,8 +9,20 @@ import {Observable} from 'rxjs';
 })
 export class AgentService {
   private apiUrl = 'http://localhost:8080/api/agents';
+  private agentsSubject = new BehaviorSubject<Agent[]>([]);
+  public agents$ = this.agentsSubject.asObservable();
 
   constructor(private http: HttpClient) {
+  }
+  loadAgents() {
+    this.http.get<Agent[]>('url-to-get-agents').subscribe({
+      next: (agents) => {
+        this.agentsSubject.next(agents);  // Met à jour le tableau des agents
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des agents', err);
+      }
+    });
   }
 
   createAgent(
@@ -53,4 +66,32 @@ export class AgentService {
 
     return this.http.post(`${this.apiUrl}/create`, formData, {headers});
   }
+
+  getAgentById(id: number | undefined): Observable<Agent> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.get<Agent>(`${this.apiUrl}/${id}`, { headers });
+  }
+  getAllAgents(): Observable<Agent[]> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Agent[]>(`${this.apiUrl}`, { headers });
+  }
+
+  // Mettre à jour un agent
+  updateAgent(id: number, updatedAgent: Agent): Observable<Agent> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.put<Agent>(`${this.apiUrl}/update/${id}`, updatedAgent, { headers });
+  }
+
+  // Supprimer un agent
+  deleteAgent(id: number | undefined): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    console.log('Suppression de l\'agent avec ID:', id);
+    return this.http.delete(`${this.apiUrl}/${id}`, { headers });
+  }
+
 }

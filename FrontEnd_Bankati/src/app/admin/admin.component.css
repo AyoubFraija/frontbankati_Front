@@ -173,7 +173,19 @@ body {
   from { opacity: 0; }
   to { opacity: 1; }
 }
-
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
 .modal-content {
   background: white;
   border-radius: 12px;
@@ -338,4 +350,33 @@ body {
   .form-right {
     flex: 1;
   }
+}
+/* Ciblez les éléments de formulaire que vous souhaitez aligner horizontalement */
+.form-row {
+  display: flex; /* Permet un alignement horizontal */
+  gap: 20px; /* Espacement entre les éléments */
+  align-items: center; /* Alignement vertical centré */
+}
+
+/* Appliquer un espacement vertical aux éléments individuels si nécessaire */
+.form-group {
+  margin-bottom: 15px;
+}
+
+/* Vous pouvez également définir la largeur des champs pour un meilleur contrôle */
+input, select {
+  width: 100%; /* Remplir toute la largeur du container */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Spécifiez la largeur des champs lorsque vous les voulez plus petits */
+input.short, select.short {
+  width: 48%; /* Pour deux champs sur une ligne, par exemple Nom et Prénom */
+}
+
+/* Ajustement spécifique pour les champs d'adresse et N° de pièce d'identité */
+.input-half {
+  width: 48%; /* Largeur moitié pour les champs alignés */
 }

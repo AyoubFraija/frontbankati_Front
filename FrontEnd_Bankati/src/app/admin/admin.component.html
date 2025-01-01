@@ -47,110 +47,207 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let user of users; let i = index">
+      <tr *ngFor="let agent of agents; let i = index trackBy: trackByAgentId">
         <td>{{ i + 1 }}</td>
         <td>
-          <img [src]="user.photo" alt="{{ user.name }}" class="user-photo" />
+          <img  alt="{{ agent.firstname }}" class="user-photo" />
         </td>
-        <td>{{ user.name }}</td>
-        <td>{{ user.email }}</td>
-        <td>{{ user.phone }}</td>
-        <td>{{ user.role }}</td>
+        <td>{{ agent.firstname }} {{ agent.lastname }}</td>
+        <td>{{ agent.email }}</td>
+        <td>{{ agent.phonenumber }}</td>
+        <td>{{ agent.role }}</td>
         <td>
-          <button class="edit-button" (click)="editUser(user)">Edit</button>
-          <button class="delete-button" (click)="deleteUser(user)">Delete</button>
+          <button class="edit-button" (click)="editAgent(agent)">Edit</button>
+          <button class="delete-button" (click)="deleteAgent(agent.id)">Delete</button>
         </td>
       </tr>
-      </tbody>
     </table>
   </div>
 </div>
-
-<!-- Modal for editing user -->
-<div *ngIf="selectedUser" class="modal">
+<!-- Modal pour la création d'agent -->
+<div class="modal-overlay" *ngIf="isCreateAgentModalOpen">
   <div class="modal-content">
     <div class="modal-header">
-      <h2>Fill the Form</h2>
-      <button class="close-btn" (click)="cancelEdit()">×</button>
+      <h2>Entrer Les Informations Agents</h2>
+      <button class="close-btn" (click)="closeCreateAgentModal()">×</button>
     </div>
     <div class="modal-body">
-      <form (ngSubmit)="saveUser()" class="form-container">
-        <div class="form-left">
-          <img
-            [src]="selectedUser.photo || 'https://via.placeholder.com/100'"
-            alt="User Photo"
-            class="user-photo"
-          />
-        </div>
+      <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="form-container">
         <div class="form-right">
-          <label for="name">Name:</label>
-          <input
-            type="text"
-            id="name"
-            [(ngModel)]="selectedUser.name"
-            name="name"
-            required
-          />
+          <!-- Ligne Nom et Prénom -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nom">Nom</label>
+              <input type="text" id="nom" [(ngModel)]="formData.lastname" name="lastname" required>
+            </div>
+            <div class="form-group">
+              <label for="prenom">Prénom</label>
+              <input type="text" id="prenom" [(ngModel)]="formData.firstname" name="firstname" required>
+            </div>
+          </div>
 
-          <label for="age">Age:</label>
-          <input
-            type="number"
-            id="age"
-            [(ngModel)]="selectedUser.age"
-            name="age"
-            required
-          />
+          <!-- Ligne Pièce d'identité et Adresse -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="piece_identite">N° Pièce d'identité</label>
+              <input type="text" id="piece_identite" [(ngModel)]="formData.numCin" name="numCin" required>
+            </div>
+            <div class="form-group">
+              <label for="address">Adresse</label>
+              <input type="text" id="address" [(ngModel)]="formData.address" name="address" required>
+            </div>
+          </div>
 
-          <label for="city">City:</label>
-          <input
-            type="text"
-            id="city"
-            [(ngModel)]="selectedUser.city"
-            name="city"
-            required
-          />
+          <!-- Date de naissance -->
+          <div class="form-group">
+            <label for="date_naissance">Date de naissance</label>
+            <input type="date" id="date_naissance" [(ngModel)]="formData.birthdate" name="birthdate" required>
+          </div>
 
-          <label for="email">E-mail:</label>
-          <input
-            type="email"
-            id="email"
-            [(ngModel)]="selectedUser.email"
-            name="email"
-            required
-          />
+          <!-- Ligne Email et Confirmation Email -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" [(ngModel)]="formData.email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="confirm_email">Confirmation Email</label>
+              <input type="email" id="confirm_email" [(ngModel)]="formData.emailConfirmation" name="emailConfirmation" required>
+            </div>
+          </div>
 
-          <label for="phone">Phone:</label>
-          <input
-            type="text"
-            id="phone"
-            [(ngModel)]="selectedUser.phone"
-            name="phone"
-            required
-          />
+          <!-- Numéro de téléphone -->
+          <div class="form-group">
+            <label for="telephone">Numéro de téléphone</label>
+            <input type="tel" id="telephone" [(ngModel)]="formData.phonenumber" name="phonenumber" required>
+          </div>
 
-          <label for="post">Post:</label>
-          <input
-            type="text"
-            id="post"
-            [(ngModel)]="selectedUser.role"
-            name="post"
-            required
-          />
+          <!-- Ligne Immatriculation et Patente -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="immatriculation">N° d'immatriculation</label>
+              <input type="text" id="immatriculation" [(ngModel)]="formData.numLicence" name="numLicence">
+            </div>
+            <div class="form-group">
+              <label for="patente">N° de patente</label>
+              <input type="text" id="patente" [(ngModel)]="formData.numRegCom" name="numRegCom">
+            </div>
+          </div>
 
-          <label for="start-date">Start Date:</label>
-          <input
-            type="date"
-            id="start-date"
-            [(ngModel)]="selectedUser.startDate"
-            name="startDate"
-            required
-          />
+          <!-- Pièces justificatives -->
+          <div class="form-group">
+            <label for="cinRecto">Recto de la CIN</label>
+            <input type="file" id="cinRecto" (change)="onFileSelected($event, 'cinRecto')" required>
+          </div>
+          <div class="form-group">
+            <label for="cinVerso">Verso de la CIN</label>
+            <input type="file" id="cinVerso" (change)="onFileSelected($event, 'cinVerso')" required>
+          </div>
+
+          <!-- Description -->
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" [(ngModel)]="formData.description" name="description" required></textarea>
+          </div>
         </div>
       </form>
     </div>
     <div class="modal-footer">
-      <button type="submit" class="submit-btn" (click)="saveUser()">Submit</button>
-      <button type="button" class="cancel-btn" (click)="cancelEdit()">Cancel</button>
+      <button type="submit" class="submit-btn" [disabled]="loading" (click)="onSubmit(form)">Enregistrer</button>
+      <button class="cancel-btn" (click)="closeCreateAgentModal()">Annuler</button>
     </div>
   </div>
 </div>
+
+<!-- Modal for editing agent -->
+<div *ngIf="selectedAgent" class="modal-overlay">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Modifier les informations de l'agent</h2>
+      <button class="close-btn" (click)="cancelEdit()">×</button>
+    </div>
+    <div class="modal-body">
+      <form #editForm="ngForm" (ngSubmit)="saveAgent(editForm)" class="form-container">
+        <div class="form-right">
+          <!-- Ligne Nom et Prénom -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nom">Nom</label>
+              <input
+                type="text"
+                id="nomU"
+                [(ngModel)]="selectedAgent.lastname"
+                name="lastname"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="prenom">Prénom</label>
+              <input
+                type="text"
+                id="prenomU"
+                [(ngModel)]="selectedAgent.firstname"
+                name="firstname"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="emailU"
+              [(ngModel)]="selectedAgent.email"
+              name="email"
+              required
+            />
+          </div>
+
+          <!-- Numéro de téléphone -->
+          <div class="form-group">
+            <label for="telephone">Numéro de téléphone</label>
+            <input
+              type="tel"
+              id="telephoneU"
+              [(ngModel)]="selectedAgent.phonenumber"
+              name="phonenumber"
+              required
+            />
+          </div>
+
+          <!-- Role -->
+          <div class="form-group">
+            <label for="role">Role</label>
+            <input
+              type="text"
+              id="role"
+              [(ngModel)]="selectedAgent.role"
+              name="role"
+              required
+            />
+          </div>
+
+          <!-- Description -->
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea
+              id="descriptionU"
+              [(ngModel)]="selectedAgent.description"
+              name="description"
+              required
+            ></textarea>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="submit-btn" [disabled]="loading" (click)="saveAgent(editForm)">
+        Enregistrer
+      </button>
+      <button class="cancel-btn" (click)="cancelEdit()">Annuler</button>
+    </div>
+  </div>
+</div>
+

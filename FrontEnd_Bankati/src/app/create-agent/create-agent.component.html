@@ -1,115 +1,115 @@
-<div class="login-root">
-  <div class="box-root flex-flex flex-direction--column" style="min-height: 100vh;flex-grow: 1;">
-    <div class="loginbackground box-background--white padding-top--64">
-      <div class="loginbackground-gridContainer">
-        <div class="box-root flex-flex" style="grid-area: top / start / 8 / end;">
-          <div class="box-root" style="background-image: linear-gradient(white 0%, rgb(247, 250, 252) 33%); flex-grow: 1;">
-          </div>
-        </div>
-        <div class="box-root flex-flex" style="grid-area: 4 / 2 / auto / 5;">
-          <div class="box-root box-divider--light-all-2 animationLeftRight tans3s" style="flex-grow: 1;"></div>
-        </div>
-        <div class="box-root flex-flex" style="grid-area: 6 / start / auto / 2;">
-          <div class="box-root box-background--blue800" style="flex-grow: 1;"></div>
-        </div>
-        <div class="box-root flex-flex" style="grid-area: 7 / start / auto / 4;">
-          <div class="box-root box-background--blue animationLeftRight" style="flex-grow: 1;"></div>
-        </div>
-        <div class="box-root flex-flex" style="grid-area: 8 / 4 / auto / 6;">
-          <div class="box-root box-background--gray100 animationLeftRight tans3s" style="flex-grow: 1;"></div>
-        </div>
-        <div class="box-root flex-flex" style="grid-area: 2 / 15 / auto / end;">
-          <div class="box-root box-background--cyan200 animationRightLeft tans4s" style="flex-grow: 1;"></div>
-        </div>
-        <div class="box-root flex-flex" style="grid-area: 3 / 14 / auto / end;">
-          <div class="box-root box-background--blue animationRightLeft" style="flex-grow: 1;"></div>
-        </div>
-        <div class="box-root flex-flex" style="grid-area: 4 / 17 / auto / 20;">
-          <div class="box-root box-background--gray100 animationRightLeft tans4s" style="flex-grow: 1;"></div>
-        </div>
-        <div class="box-root flex-flex" style="grid-area: 5 / 14 / auto / 17;">
-          <div class="box-root box-divider--light-all-2 animationRightLeft tans3s" style="flex-grow: 1;"></div>
-        </div>
-      </div>
-    </div>
-    <div class="box-root padding-top--24 flex-flex flex-direction--column" style="flex-grow: 1; z-index: 9;">
-      <div class="box-root padding-top--24 padding-bottom--12 flex-flex flex-justifyContent--center">
-        <h1><a href="#" rel="dofollow">Jibi-Banque</a></h1>
-      </div>
-      <div class="formbg-outer">
-        <div class="formbg">
-          <div class="formbg-inner">
-            <div class="contact-form">
-              <form #form="ngForm" (ngSubmit)="onSubmit(form)">
-                <div class="field padding-bottom--24">
-                  <h3>Entrer Les Informations Agents</h3>
-                  <p>Veuillez entrer tous les champs sans exception</p>
-                  <div class="form-row">
-                    <div class="form-group">
-                      <label for="nom">Nom</label>
-                      <input type="text" id="nom" [(ngModel)]="formData.lastname" name="lastname" required>
-                    </div>
-                    <div class="form-group">
-                      <label for="prenom">Prénom</label>
-                      <input type="text" id="prenom" [(ngModel)]="formData.firstname" name="firstname" required>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="piece_identite">N° Pièce d'identité</label>
-                    <input type="text" id="piece_identite" [(ngModel)]="formData.numCin" name="num_piece_identite" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="piece_identite">Adresse</label>
-                    <input type="text" id="address" [(ngModel)]="formData.address" name="address" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="date_naissance">Date de naissance</label>
-                    <input type="date" id="date_naissance" [(ngModel)]="formData.birthdate" name="birthdate" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" [(ngModel)]="formData.email" name="email" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="confirm_email">Confirmation Email</label>
-                    <input type="email" id="confirm_email" [(ngModel)]="formData.emailConfirmation" name="emailConfirmation" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="telephone">Numéro de téléphone</label>
-                    <input type="tel" id="telephone" [(ngModel)]="formData.phonenumber" name="phonenumber" required>
-                  </div>
-                  <div class="form-row">
-                    <div class="form-group">
-                      <label for="immatriculation">N° d'immatriculation</label>
-                      <input type="text" id="immatriculation" [(ngModel)]="formData.numLicence" name="numLicence">
-                    </div>
-                    <div class="form-group">
-                      <label for="patente">N° de patente</label>
-                      <input type="text" id="patente" [(ngModel)]="formData.numRegCom" name="numRegCom">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="cinRecto">Recto de la CIN</label>
-                    <input type="file" id="cinRecto" (change)="onFileSelected($event, 'cinRecto')" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="cinVerso">Verso de la CIN</label>
-                    <input type="file" id="cinVerso" (change)="onFileSelected($event, 'cinVerso')" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea id="description" [(ngModel)]="formData.description" name="description" required></textarea>
-                  </div>
-                  <div class="form-actions">
-                    <button type="submit" class="submit-btn" [disabled]="loading">Suivant</button>
-                    <button type="button" class="cancel-btn" (click)="cancel()">Annuler</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<!--<div class="login-root">-->
+<!--  <div class="box-root flex-flex flex-direction&#45;&#45;column" style="min-height: 100vh;flex-grow: 1;">-->
+<!--    <div class="loginbackground box-background&#45;&#45;white padding-top&#45;&#45;64">-->
+<!--      <div class="loginbackground-gridContainer">-->
+<!--        <div class="box-root flex-flex" style="grid-area: top / start / 8 / end;">-->
+<!--          <div class="box-root" style="background-image: linear-gradient(white 0%, rgb(247, 250, 252) 33%); flex-grow: 1;">-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="box-root flex-flex" style="grid-area: 4 / 2 / auto / 5;">-->
+<!--          <div class="box-root box-divider&#45;&#45;light-all-2 animationLeftRight tans3s" style="flex-grow: 1;"></div>-->
+<!--        </div>-->
+<!--        <div class="box-root flex-flex" style="grid-area: 6 / start / auto / 2;">-->
+<!--          <div class="box-root box-background&#45;&#45;blue800" style="flex-grow: 1;"></div>-->
+<!--        </div>-->
+<!--        <div class="box-root flex-flex" style="grid-area: 7 / start / auto / 4;">-->
+<!--          <div class="box-root box-background&#45;&#45;blue animationLeftRight" style="flex-grow: 1;"></div>-->
+<!--        </div>-->
+<!--        <div class="box-root flex-flex" style="grid-area: 8 / 4 / auto / 6;">-->
+<!--          <div class="box-root box-background&#45;&#45;gray100 animationLeftRight tans3s" style="flex-grow: 1;"></div>-->
+<!--        </div>-->
+<!--        <div class="box-root flex-flex" style="grid-area: 2 / 15 / auto / end;">-->
+<!--          <div class="box-root box-background&#45;&#45;cyan200 animationRightLeft tans4s" style="flex-grow: 1;"></div>-->
+<!--        </div>-->
+<!--        <div class="box-root flex-flex" style="grid-area: 3 / 14 / auto / end;">-->
+<!--          <div class="box-root box-background&#45;&#45;blue animationRightLeft" style="flex-grow: 1;"></div>-->
+<!--        </div>-->
+<!--        <div class="box-root flex-flex" style="grid-area: 4 / 17 / auto / 20;">-->
+<!--          <div class="box-root box-background&#45;&#45;gray100 animationRightLeft tans4s" style="flex-grow: 1;"></div>-->
+<!--        </div>-->
+<!--        <div class="box-root flex-flex" style="grid-area: 5 / 14 / auto / 17;">-->
+<!--          <div class="box-root box-divider&#45;&#45;light-all-2 animationRightLeft tans3s" style="flex-grow: 1;"></div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="box-root padding-top&#45;&#45;24 flex-flex flex-direction&#45;&#45;column" style="flex-grow: 1; z-index: 9;">-->
+<!--      <div class="box-root padding-top&#45;&#45;24 padding-bottom&#45;&#45;12 flex-flex flex-justifyContent&#45;&#45;center">-->
+<!--        <h1><a href="#" rel="dofollow">Jibi-Banque</a></h1>-->
+<!--      </div>-->
+<!--      <div class="formbg-outer">-->
+<!--        <div class="formbg">-->
+<!--          <div class="formbg-inner">-->
+<!--            <div class="contact-form">-->
+<!--              <form #form="ngForm" (ngSubmit)="onSubmit(form)">-->
+<!--                <div class="field padding-bottom&#45;&#45;24">-->
+<!--                  <h3>Entrer Les Informations Agents</h3>-->
+<!--                  <p>Veuillez entrer tous les champs sans exception</p>-->
+<!--                  <div class="form-row">-->
+<!--                    <div class="form-group">-->
+<!--                      <label for="nom">Nom</label>-->
+<!--                      <input type="text" id="nom" [(ngModel)]="formData.lastname" name="lastname" required>-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                      <label for="prenom">Prénom</label>-->
+<!--                      <input type="text" id="prenom" [(ngModel)]="formData.firstname" name="firstname" required>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <div class="form-group">-->
+<!--                    <label for="piece_identite">N° Pièce d'identité</label>-->
+<!--                    <input type="text" id="piece_identite" [(ngModel)]="formData.numCin" name="num_piece_identite" required>-->
+<!--                  </div>-->
+<!--                  <div class="form-group">-->
+<!--                    <label for="piece_identite">Adresse</label>-->
+<!--                    <input type="text" id="address" [(ngModel)]="formData.address" name="address" required>-->
+<!--                  </div>-->
+<!--                  <div class="form-group">-->
+<!--                    <label for="date_naissance">Date de naissance</label>-->
+<!--                    <input type="date" id="date_naissance" [(ngModel)]="formData.birthdate" name="birthdate" required>-->
+<!--                  </div>-->
+<!--                  <div class="form-group">-->
+<!--                    <label for="email">Email</label>-->
+<!--                    <input type="email" id="email" [(ngModel)]="formData.email" name="email" required>-->
+<!--                  </div>-->
+<!--                  <div class="form-group">-->
+<!--                    <label for="confirm_email">Confirmation Email</label>-->
+<!--                    <input type="email" id="confirm_email" [(ngModel)]="formData.emailConfirmation" name="emailConfirmation" required>-->
+<!--                  </div>-->
+<!--                  <div class="form-group">-->
+<!--                    <label for="telephone">Numéro de téléphone</label>-->
+<!--                    <input type="tel" id="telephone" [(ngModel)]="formData.phonenumber" name="phonenumber" required>-->
+<!--                  </div>-->
+<!--                  <div class="form-row">-->
+<!--                    <div class="form-group">-->
+<!--                      <label for="immatriculation">N° d'immatriculation</label>-->
+<!--                      <input type="text" id="immatriculation" [(ngModel)]="formData.numLicence" name="numLicence">-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                      <label for="patente">N° de patente</label>-->
+<!--                      <input type="text" id="patente" [(ngModel)]="formData.numRegCom" name="numRegCom">-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <div class="form-group">-->
+<!--                    <label for="cinRecto">Recto de la CIN</label>-->
+<!--                    <input type="file" id="cinRecto" (change)="onFileSelected($event, 'cinRecto')" required>-->
+<!--                  </div>-->
+<!--                  <div class="form-group">-->
+<!--                    <label for="cinVerso">Verso de la CIN</label>-->
+<!--                    <input type="file" id="cinVerso" (change)="onFileSelected($event, 'cinVerso')" required>-->
+<!--                  </div>-->
+<!--                  <div class="form-group">-->
+<!--                    <label for="description">Description</label>-->
+<!--                    <textarea id="description" [(ngModel)]="formData.description" name="description" required></textarea>-->
+<!--                  </div>-->
+<!--                  <div class="form-actions">-->
+<!--                    <button type="submit" class="submit-btn" [disabled]="loading">Suivant</button>-->
+<!--                    <button type="button" class="cancel-btn" (click)="cancel()">Annuler</button>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </form>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
