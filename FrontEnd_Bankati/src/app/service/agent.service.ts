@@ -87,11 +87,12 @@ export class AgentService {
   }
 
   // Supprimer un agent
-  deleteAgent(id: number | undefined): Observable<any> {
+  deleteAgent(id: number | undefined): Observable<string> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    console.log('Suppression de l\'agent avec ID:', id);
-    return this.http.delete(`${this.apiUrl}/${id}`, { headers });
+    return this.http.delete<string>(`${this.apiUrl}/${id}`, { headers });
   }
+
+
 
 }

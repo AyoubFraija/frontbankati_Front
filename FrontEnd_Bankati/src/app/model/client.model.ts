@@ -7,6 +7,7 @@ export interface Client {
   firstname: string;
   email: string;
   phonenumber: string;
+  numcin: string;
   password: string;
   cinRectoPath: string | ArrayBuffer | null;
   cinVersoPath: string | ArrayBuffer | null;

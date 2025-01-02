@@ -21,7 +21,29 @@ import {Agent} from "../model/agent.model";
 export class AdminComponent implements OnInit{
   agents: Agent[] = [];  // Utilisation du modèle Agent ici
   agent: Agent | null = null;
+  formData = {
+    lastname: '',
+    firstname: '',
+    email: '',
+    emailConfirmation: '',
+    phonenumber: '',
+    numCin: '',
+    address: '',
+    description: '',
+    birthdate: '',
+    numLicence: '',
+    numRegCom: '',
+    cinRecto: null as File | null,
+    cinVerso: null as File | null
+  };
+
+  loading = false;
+  error = '';
+  success = '';
+  hasAccess = false;
   private cdRef!: ChangeDetectorRef
+  selectedAgent: any = null;
+  isCreateAgentModalOpen = false; // Variable pour contrôler l'état du modal
   constructor(private authService: AuthService,
               private router: Router ,
               private agentService: AgentService,
@@ -52,10 +74,6 @@ export class AdminComponent implements OnInit{
   }
 
 
-
-  selectedAgent: any = null;
-  isCreateAgentModalOpen = false; // Variable pour contrôler l'état du modal
-
   goToCreateAgent(): void {
     this.isCreateAgentModalOpen = true; // Ouvre le modal
   }
@@ -64,27 +82,6 @@ export class AdminComponent implements OnInit{
   closeCreateAgentModal(): void {
     this.isCreateAgentModalOpen = false; // Ferme le modal
   }
-  formData = {
-    lastname: '',
-    firstname: '',
-    email: '',
-    emailConfirmation: '',
-    phonenumber: '',
-    numCin: '',
-    address: '',
-    description: '',
-    birthdate: '',
-    numLicence: '',
-    numRegCom: '',
-    cinRecto: null as File | null,
-    cinVerso: null as File | null
-  };
-
-  loading = false;
-  error = '';
-  success = '';
-  hasAccess = false;
-
 
   private checkAccess(): void {
     const userRoles = this.authService.getUserRole();
@@ -140,29 +137,7 @@ export class AdminComponent implements OnInit{
       });
     }
   }
-  cancel() {
-    // Réinitialiser les données du formulaire
-    this.formData = {
-      lastname: '',
-      firstname: '',
-      email: '',
-      emailConfirmation: '',
-      numCin: '',
-      address: '',
-      phonenumber: '',
-      description: '',
-      cinRecto: null as File | null,
-      cinVerso: null as File | null,
-      birthdate: '',
-      numLicence: '',
-      numRegCom: ''
-    };
 
-    // Réinitialiser le formulaire NgForm
-    this.success = '';
-    this.error = '';
-    this.loading = false;
-  }
 
   editAgent(agent: Agent): void {
     this.selectedAgent = { ...agent };
@@ -177,7 +152,6 @@ export class AdminComponent implements OnInit{
           console.log('Agent mis à jour avec succès :', response);
           this.loading = false;
           this.cancelEdit(); // Fermer le modal après sauvegarde
-          this.agents.push(response);
           this.cdRef.detectChanges();
           this.loadAgents();
         },
@@ -190,39 +164,33 @@ export class AdminComponent implements OnInit{
   }
 
   // Supprimer un agent
-  deleteAgent(id: number | undefined) {
+  deleteAgent(id: number | undefined): void {
+    if (!id) {
+      this.error = 'L\'ID de l\'agent est invalide';
+      return;
+    }
+
     this.agentService.deleteAgent(id).subscribe({
-      next: (data) => {
-        this.success = 'Agent supprimé avec succès';
+      next: () => {
+        // Supprimez l'agent localement
         this.agents = this.agents.filter(agent => agent.id !== id);
-        console.log('Liste après suppression', this.agents);
+
+        // Forcer la détection des changements
         this.cdRef.detectChanges();
-        this.loadAgents();// Recharger la liste des agents
+
+        // Affichez un message de succès
+        this.success = 'Agent supprimé avec succès';
       },
       error: (err) => {
+        console.error('Erreur lors de la suppression de l\'agent :', err);
         this.error = 'Erreur lors de la suppression de l\'agent';
       }
     });
   }
 
+
   // Cancel editing
   cancelEdit() {
-    this.selectedAgent = null; // Reset form
-  }
-  saveUser() {
-    if (this.selectedAgent.id) {
-      // Update existing user
-      const index = this.agents.findIndex((u) => u.id === this.selectedAgent.id);
-      if (index !== -1) {
-        this.agents[index] = { ...this.selectedAgent };
-      }
-    } else {
-      // Add new user
-      // @ts-ignore
-      const newId = Math.max(...this.agents.map((u) => u.id)) + 1;
-      this.selectedAgent.id = newId;
-      this.agents.push({ ...this.selectedAgent });
-    }
     this.selectedAgent = null; // Reset form
   }
   trackByAgentId(index: number, agent: Agent): number {

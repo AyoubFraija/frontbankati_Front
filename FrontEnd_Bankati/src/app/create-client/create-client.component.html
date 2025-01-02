@@ -3,7 +3,8 @@
     <div class="loginbackground box-background--white padding-top--64">
       <div class="loginbackground-gridContainer">
         <div class="box-root flex-flex" style="grid-area: top / start / 8 / end;">
-          <div class="box-root" style="background-image: linear-gradient(white 0%, rgb(247, 250, 252) 33%); flex-grow: 1;">
+          <div class="box-root"
+               style="background-image: linear-gradient(white 0%, rgb(247, 250, 252) 33%); flex-grow: 1;">
           </div>
         </div>
         <div class="box-root flex-flex" style="grid-area: 4 / 2 / auto / 5;">
@@ -19,173 +20,190 @@
           <div class="box-root box-background--gray100 animationLeftRight tans3s" style="flex-grow: 1;"></div>
         </div>
         <div class="box-root flex-flex" style="grid-area: 2 / 15 / auto / end;">
-          <div class="box-root box-background--cyan200 animationRightLeft tans4s" style="flex-grow: 1;"></div>
+          <div class="box-root box-background--cyan200 animationRightLeft tans4s" style="flex-grow: 1;">
+          </div>
         </div>
         <div class="box-root flex-flex" style="grid-area: 3 / 14 / auto / end;">
           <div class="box-root box-background--blue animationRightLeft" style="flex-grow: 1;"></div>
         </div>
         <div class="box-root flex-flex" style="grid-area: 4 / 17 / auto / 20;">
-          <div class="box-root box-background--gray100 animationRightLeft tans4s" style="flex-grow: 1;"></div>
+          <div class="box-root box-background--gray100 animationRightLeft tans4s" style="flex-grow: 1;">
+          </div>
         </div>
         <div class="box-root flex-flex" style="grid-area: 5 / 14 / auto / 17;">
-          <div class="box-root box-divider--light-all-2 animationRightLeft tans3s" style="flex-grow: 1;"></div>
+          <div class="box-root box-divider--light-all-2 animationRightLeft tans3s" style="flex-grow: 1;">
+          </div>
         </div>
       </div>
     </div>
+
     <div class="box-root padding-top--24 flex-flex flex-direction--column" style="flex-grow: 1; z-index: 9;">
       <div class="box-root padding-top--24 padding-bottom--12 flex-flex flex-justifyContent--center">
-        <h1><a href="#" rel="dofollow">Jibi-Banque</a></h1>
+        <h1><a href="#" rel="dofollow">Bankati-Banque</a></h1>
       </div>
       <div class="formbg-outer">
-        <div class="formbg">
+        <div class="container">
+          <h2 class="table-title">Gestion des Clients</h2>
+          <button class="add-btn" (click)="goToCreateClient()">Add Client</button>
+
+          <table class="client-table">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Nom</th>
+              <th>Prénom</th>
+              <th>Produit</th>
+              <th>N° Pièce d'identité</th>
+              <th>Email</th>
+              <th>Téléphone</th>
+              <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let client of clients;let i = index trackBy: trackByClientId">
+              <td>{{ i + 1 }}</td>
+              <td>{{ client.lastname }}</td>
+              <td>{{ client.firstname }}</td>
+              <td>{{ client.accountType }}</td>
+              <td>{{ client.numcin }}</td>
+              <td>{{ client.email }}</td>
+              <td>{{ client.phonenumber }}</td>
+              <td>
+                <button class="edit-btn" (click)="editClient(client)">Edit</button>
+                <button class="delete-btn" (click)="deleteClient(client.id)">Delete</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="formbg" *ngIf="isCreateClientModalOpen">
           <div class="formbg-inner">
             <div class="contact-form">
-            <form #clientForm="ngForm" (ngSubmit)="onSubmit(clientForm)">
-              <h3 class="field padding-bottom--24">Création d'un nouveau client</h3>
-              <p>Veuillez entrer toutes les informations nécessaires pour créer un compte client.</p>
+              <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="form-container">
+                <div class="field padding-bottom--24">
+                  <h3>{{ editingClient ? 'Modifier Client' : 'Entrer Les Informations Clients' }}</h3>
+                  <p>Veuillez entrer tous les champs sans exception</p>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="nom">Nom</label>
+                      <input type="text" id="nom" [(ngModel)]="formData.lastname" name="lastname" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="prenom">Prénom</label>
+                      <input type="text" id="prenom" [(ngModel)]="formData.firstname" name="firstname" required>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="produit">Sélectionner un produit</label>
+                      <select id="produit" [(ngModel)]="formData.accountType" name="accountType" required>
+                        <option value="" disabled selected>Choisissez un produit</option>
+                        <option *ngFor="let accountType of accountTypes" [value]="accountType.type">{{ accountType.data.description }}</option>
+                      </select>
+                    </div>
 
-              <!-- Nom -->
-              <div class="form-group">
-                <label for="lastname">Nom</label>
-                <input
-                  type="text"
-                  id="lastname"
-                  name="lastname"
-                  [(ngModel)]="formData.lastname"
-                  required
-                  #lastname="ngModel">
-                <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="error-message">
-                  Le nom est requis.
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="email">Email</label>
+                      <input type="email" id="email" [(ngModel)]="formData.email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="confirm_email">Confirmation Email</label>
+                      <input type="email" id="confirm_email" [(ngModel)]="formData.emailConfirmation" name="emailConfirmation" required>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="telephone">Numéro de téléphone</label>
+                      <input type="tel" id="telephone" [(ngModel)]="formData.phonenumber" name="phonenumber" required>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="piece_identite">N° Pièce d'identité</label>
+                      <input type="text" id="piece_identite" [(ngModel)]="formData.numcin" name="numcin" required>
+                    </div>
+                  </div>
+                  <!-- Pièces justificatives -->
+                  <div class="form-group">
+                    <label for="cinRecto">Recto de la CIN</label>
+                    <input type="file" id="cinRecto" (change)="onFileSelected($event, 'cinRecto')" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="cinVerso">Verso de la CIN</label>
+                    <input type="file" id="cinVerso" (change)="onFileSelected($event, 'cinVerso')" required>
+                  </div>
+                  <div class="form-actions">
+                    <button type="submit" class="submit-btn" [disabled]="loading" (click)="onSubmit(form)">Enregistrer</button>
+                    <button type="button" class="cancel-btn" (click)="closeCreateClientModal()">Annuler</button>
+                  </div>
                 </div>
-              </div>
-
-              <!-- Prénom -->
-              <div class="form-group">
-                <label for="firstname">Prénom</label>
-                <input
-                  type="text"
-                  id="firstname"
-                  name="firstname"
-                  [(ngModel)]="formData.firstname"
-                  required
-                  #firstname="ngModel">
-                <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="error-message">
-                  Le prénom est requis.
-                </div>
-              </div>
-
-              <!-- Email -->
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  [(ngModel)]="formData.email"
-                  required
-                  email
-                  #email="ngModel">
-                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error-message">
-                  Un email valide est requis.
-                </div>
-              </div>
-
-              <!-- Confirmation Email -->
-              <div class="form-group">
-                <label for="emailConfirmation">Confirmation Email</label>
-                <input
-                  type="email"
-                  id="emailConfirmation"
-                  name="emailConfirmation"
-                  [(ngModel)]="formData.emailConfirmation"
-                  required
-                  email
-                  #emailConfirmation="ngModel">
-                <div *ngIf="emailConfirmation.invalid && (emailConfirmation.dirty || emailConfirmation.touched)" class="error-message">
-                  La confirmation d'email est requise.
-                </div>
-              </div>
-
-              <!-- Numéro de téléphone -->
-              <div class="form-group">
-                <label for="phonenumber">Numéro de téléphone</label>
-                <input
-                  type="tel"
-                  id="phonenumber"
-                  name="phonenumber"
-                  [(ngModel)]="formData.phonenumber"
-                  required
-                  #phonenumber="ngModel">
-                <div *ngIf="phonenumber.invalid && (phonenumber.dirty || phonenumber.touched)" class="error-message">
-                  Le numéro de téléphone est requis.
-                </div>
-              </div>
-
-              <!-- Type de compte -->
-              <div class="form-group">
-                <label for="accountType">Type de compte</label>
-                <select
-                  id="accountType"
-                  name="accountType"
-                  [(ngModel)]="formData.accountType"
-                  required
-                  #accountType="ngModel">
-                  <option value="">Sélectionnez un type de compte</option>
-                  <option *ngFor="let account of accountTypes" [value]="account.type">
-                    {{ account.data.description }} (Plafond: {{ account.data.plafond }} €)
-                  </option>
-                </select>
-                <div *ngIf="accountType.invalid && (accountType.dirty || accountType.touched)" class="error-message">
-                  Le type de compte est requis.
-                </div>
-              </div>
-
-              <!-- CIN Recto -->
-              <div class="form-group">
-                <label for="cinRecto">CIN Recto</label>
-                <input
-                  type="file"
-                  id="cinRecto"
-                  name="cinRecto"
-                  (change)="onFileSelected($event, 'cinRecto')"
-                  accept="image/*"
-                  required>
-              </div>
-
-              <!-- CIN Verso -->
-              <div class="form-group">
-                <label for="cinVerso">CIN Verso</label>
-                <input
-                  type="file"
-                  id="cinVerso"
-                  name="cinVerso"
-                  (change)="onFileSelected($event, 'cinVerso')"
-                  accept="image/*"
-                  required>
-              </div>
-
-              <!-- Actions -->
-              <div class="form-actions">
-                <button type="submit" class="submit-btn" [disabled]="!clientForm.valid || loading">
-                  {{ loading ? 'Création en cours...' : 'Créer le client' }}
-                </button>
-                <button type="button" class="cancel-btn" (click)="cancel()">
-                  Annuler
-                </button>
-              </div>
-
-              <!-- Messages -->
-              <div *ngIf="error" class="alert alert-error">
-                {{ error }}
-              </div>
-              <div *ngIf="success" class="alert alert-success">
-                {{ success }}
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+<!-- Modal for Editing Client -->
+<div class="formbg" *ngIf="selectedClient">
+  <div class="formbg-inner">
+    <div class="contact-form">
+      <form #editForm="ngForm" (ngSubmit)="saveClient(editForm)" class="form-container">
+        <div class="field padding-bottom--24">
+          <h3>Modifier Client</h3>
+          <p>Veuillez entrer tous les champs sans exception</p>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nomU">Nom</label>
+              <input type="text" id="nomU" [(ngModel)]="selectedClient.lastname" name="lastname" required>
+            </div>
+            <div class="form-group">
+              <label for="prenomU">Prénom</label>
+              <input type="text" id="prenomU" [(ngModel)]="selectedClient.firstname" name="firstname" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="produitU">Sélectionner un produit</label>
+            <select
+              id="produitU"
+              [(ngModel)]="selectedClient.accountType"
+              name="accountType"
+              required>
+              <option value="" disabled selected>Choisissez un produit</option>
+              <option *ngFor="let accountType of accountTypes" [value]="accountType.type">
+                {{ accountType.data.description }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="emailU">Email</label>
+              <input type="email" id="emailU" [(ngModel)]="selectedClient.email" name="email" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="telephoneU">Numéro de téléphone</label>
+              <input type="tel" id="telephoneU" [(ngModel)]="selectedClient.phonenumber" name="phonenumber" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="piece_identiteU">N° Pièce d'identité</label>
+              <input type="text" id="piece_identiteU" [(ngModel)]="selectedClient.numcin" name="numcin" required>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="submit-btn" [disabled]="loading" (click)="saveClient(editForm)">Mettre à jour</button>
+            <button type="button" class="cancel-btn" (click)="cancelEdit()">Annuler</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

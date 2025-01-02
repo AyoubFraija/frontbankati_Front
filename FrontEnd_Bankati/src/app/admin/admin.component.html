@@ -43,6 +43,7 @@
         <th>Email</th>
         <th>Phone</th>
         <th>Role</th>
+        <th>Num CIN</th>
         <th>Actions</th>
       </tr>
       </thead>
@@ -56,6 +57,7 @@
         <td>{{ agent.email }}</td>
         <td>{{ agent.phonenumber }}</td>
         <td>{{ agent.role }}</td>
+        <td>{{agent.numCin}}</td>
         <td>
           <button class="edit-button" (click)="editAgent(agent)">Edit</button>
           <button class="delete-button" (click)="deleteAgent(agent.id)">Delete</button>
