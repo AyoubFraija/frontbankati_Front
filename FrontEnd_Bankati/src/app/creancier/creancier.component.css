@@ -1,6 +1,20 @@
+
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  font-size: 1.2em; /* Larger font */
+}
+
+/* Container styles */
+.container {
+  display: flex;
+}
+
 /* Sidebar styles */
 .sidebar {
-  width: 320px;
+  width: 320px; /* Increased width */
   background-color: #343a40;
   color: white;
   padding: 25px; /* Increased padding */
@@ -10,13 +24,12 @@
   top: 0;
   left: 0;
   box-shadow: 3px 0 12px rgba(0, 0, 0, 0.1);
-  font-size: 1.6em; /* Increased font size */
+  font-size: 1.2em;
 }
 
-.test {
+.test{
   margin-top: 70px;
 }
-
 .sidebar ul {
   list-style: none;
   padding: 0;
@@ -36,205 +49,103 @@
 
 .sidebar li i {
   margin-right: 15px; /* Larger icons */
-  font-size: 1.4em; /* Increased icon size */
+  font-size: 1.2em;
 }
 
-/* Main container */
-.container {
-  display: flex;
-  align-items: flex-start; /* Align content at the top to accommodate sidebar */
-  flex-direction: column;
-  position: relative;
-  height: 100vh;
-  width: 100%; /* Utilisez un pourcentage pour s'adapter au parent */
-  max-width: 3000px;  /* Augmentez la largeur maximale */
-  margin-left: 900px; /* Ajustez selon la largeur de la sidebar */
-  padding-top: 20px; /* Adjust top padding for space */
-}
-
-/* Header styles */
-.header {
-  position: fixed;
-  top: 20px;
-  left: 10px;
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-}
-
-.header button {
-  margin-bottom: 10px;
-  padding: 10px 18px; /* Slightly larger padding */
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  cursor: pointer;
-  font-size: 16px; /* Increased font size */
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-.header button:hover {
-  background-color: #45a049;
-}
-
-/* Facture container */
-.facture-container, .historique-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 80%;
-  max-width: 800px;
-  margin-top: 80px;
-  padding: 20px;
-  border: 2px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-  font-size: 1.3em; /* Increased font size for containers */
-}
-
-/* Créancier style */
-.creancier {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-  padding: 15px;
-  background-color: #f2f2f2;
-  border-radius: 8px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  width: 100%; /* Par exemple, 80% de la largeur du conteneur parent */
-  max-width: 1500px; /* Largeur maximale */
-  font-family: Arial, sans-serif;
-}
-
-.creancier img {
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-right: 15px;
-}
-
-.creancier button {
-  margin-left: auto;
-  padding: 15px 25px; /* Augmenté pour un bouton plus grand */
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 8px; /* Coins légèrement plus arrondis */
-  font-size: 1.2em; /* Augmenter la taille de la police */
-  transition: background-color 0.3s ease;
-}
-
-.creancier button:hover {
-  background-color: #45a049;
-}
-
-/* Modal style */
-.modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 100;
-  width: 90%; /* Garder la largeur à 90% de l'écran */
-  max-width: 800px; /* Augmenter la largeur maximale */
-  background-color: #f0f0f0; /* Fond gris clair pour le modal */
-  border-radius: 8px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  font-size: 1.4em; /* Augmenter la taille de la police */
-  padding: 30px; /* Augmenter le padding pour plus d'espace */
-  font-family: Arial, sans-serif;
-}
-
-/* Modal header style */
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 30px; /* Plus d'espace autour du titre */
-  background-color: #ccc; /* Gris pour l'en-tête */
-  color: white;
-  font-size: 22px; /* Augmenter la taille de la police du titre */
-}
-
-/* Modal content style */
-.modal-content {
-  padding: 30px; /* Plus d'espace dans le contenu */
-  color: #333;
-  font-size: 1.3em; /* Augmenter légèrement la taille de la police du contenu */
-}
-
-/* Modal footer style */
-.modal-footer {
-  display: flex;
-  justify-content: flex-end;
-  padding: 20px 30px; /* Plus d'espace dans le footer */
-  border-top: 1px solid #ddd;
-  background-color: #f0f0f0; /* Fond gris clair pour le footer */
-}
-.modal-footer button[type="submit"], .modal-footer button[type="button"] {
-  padding: 12px 30px; /* Réduction du padding */
-  font-size: 1em; /* Réduction de la taille de la police */
-  border-radius: 6px; /* Coins légèrement arrondis */
-  cursor: pointer;
-  margin-left: 10px; /* Espacement entre les boutons */
-}
-
-/* Bouton "Valider" */
-.modal-footer button[type="submit"] {
-  background-color: #4caf50; /* Vert pour le bouton "Valider" */
-  color: white;
-  border: none;
-}
-
-.modal-footer button[type="submit"]:hover {
-  background-color: #45a049;
-}
-
-/* Bouton "Annuler" */
-.modal-footer button[type="button"] {
-  background-color: #f44336; /* Rouge pour le bouton "Annuler" */
-  color: white;
-  border: none;
-}
-
-.modal-footer button[type="submit"]:hover {
-  background-color: #45a049;
-}
-
-/* Bouton "Annuler" */
-.modal-footer button[type="button"] {
-  background-color: #f44336; /* Rouge pour le bouton "Annuler" */
-  color: white;
-  border: none;
-}
-
-.modal-footer button[type="button"]:hover {
-  background-color: #e53935;
-}
-
-/* Modal overlay */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
+/* Main content */
+.payment-container {
+  margin-left: 400px;
+  padding: 40px; /* Augmenté */
   width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  z-index: 99;
+  background-color: #f9f9f9;
+  border-radius: 10px;
 }
 
-.modal-content .form-input {
-  width: 100%; /* Prend toute la largeur disponible */
-  padding: 12px 15px; /* Augmente le padding */
-  font-size: 1em; /* Augmente la taille de la police */
+h1 {
+  font-size: 36px; /* Taille de police augmentée */
+  margin-bottom: 30px;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 15px; /* Augmenté l'espace entre les onglets */
+  margin-bottom: 30px;
+}
+
+.tab {
+  padding: 15px 30px; /* Agrandi */
+  font-size: 20px; /* Police plus grande */
+  background-color: #e0e0e0;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.tab.active {
+  background-color: #31b23d;
+  color: white;
+  font-size: 22px; /* Police plus grande */
+}
+
+/* Filter styles */
+.filter-container {
+  margin-bottom: 30px;
+}
+
+.filter-container select {
+  width: 100%;
+  padding: 15px; /* Agrandi */
   border: 1px solid #ccc;
-  border-radius: 5px; /* Coins légèrement arrondis */
-  box-sizing: border-box; /* Assure que padding ne dépasse pas la largeur */
+  border-radius: 8px;
+  font-size: 18px; /* Taille de police augmentée */
+}
+
+/* Creditor card styles */
+.creditor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Taille minimale des cartes augmentée */
+  gap: 30px; /* Augmenté l'espace entre les cartes */
+}
+
+.creditor-card {
+  background-color: white;
+  padding: 25px; /* Agrandi */
+  border: 1px solid #ddd;
+  border-radius: 15px; /* Bords arrondis plus visibles */
+  text-align: center;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2); /* Augmenté l'ombre pour un effet plus visible */
+}
+
+.creditor-card img {
+  max-width: 150px; /* Agrandi */
+  margin-bottom: 20px;
+}
+
+.creditor-card h3 {
+  font-size: 24px; /* Taille de police augmentée */
+  margin: 15px 0;
+  color: #333;
+}
+
+.creditor-card p {
+  font-size: 20px; /* Taille de police augmentée */
+  color: #666;
+}
+
+/* Buttons */
+button {
+  padding: 15px 30px; /* Taille des boutons agrandie */
+  font-size: 20px; /* Police augmentée */
+  background-color: #31b23d;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* Ajout d'une ombre pour un effet de surélévation */
+}
+
+button:hover {
+  background-color: #27b300;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Effet hover plus visible */
 }

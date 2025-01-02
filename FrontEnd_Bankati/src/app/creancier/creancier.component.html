@@ -1,63 +1,86 @@
-<div class="sidebar">
-  <div class="test">
-    <ul>
-      <li style="background-color: #3e8e41;">
-        <a (click)="showFacture()" style="color: white; text-decoration: none">
-          <i class="fas fa-file-invoice" style="color: white"></i> Factures
-        </a>
-      </li>
-      <li>
-        <a (click)="showHistorique()" style="color: white; text-decoration: none">
-          <i class="fas fa-credit-card" style="color: white"></i> Historique
-        </a>
-      </li>
-      <li><i class="fas fa-chart-bar" style="color: white"></i> Analytics</li>
-      <li><i class="fas fa-bookmark" style="color: white"></i> Bookmarks</li>
-      <li><i class="fas fa-cog" style="color: white"></i> Settings</li>
-      <li><i class="fas fa-user" style="color: white"></i> Profile</li>
-      <li><i class="fas fa-sign-out-alt" style="color: white"></i> Logout</li>
-    </ul>
-  </div>
-</div>
-
-<div class="container">
-  <div *ngIf="isFactureVisible" class="facture-container">
-    <h2>Liste des créanciers</h2>
-    <div *ngFor="let creancier of creanciers" class="creancier">
-      <img [src]="getImageUrl(creancier.nom)" alt="Logo Créancier" />
-      <div>
-        <h3>{{ creancier.nom }}</h3>
-        <p>{{ creancier.service }}</p>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="test">
+        <ul>
+          <li>
+            <a routerLink="/dashboard" style="color: white; text-decoration: none"
+            ><i class="fas fa-tachometer-alt" style="color: white"></i>
+              Dashboard</a
+            >
+          </li>
+          <li>
+            <a routerLink="/cart" style="color: white; text-decoration: none"
+            ><i class="fas fa-credit-card" style="color: white"></i> Bank
+              Card</a
+            >
+          </li>
+          <li>
+            <a routerLink="/facture" style="color: white; text-decoration: none"
+            ><i class="fas fa-file-invoice" style="color: white"></i>
+              Factures</a
+            >
+          </li>
+          <li>
+            <a routerLink="/currency" style="color: white; text-decoration: none"
+            ><i class="fas fa-coins"></i> Converter</a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="/virement"
+              style="color: white; text-decoration: none"
+            ><i class="fas fa-chart-bar" style="color: white"></i>
+              Virement</a
+            >
+          </li>
+          <li>
+            <a routerLink="/recharge" style="color: white; text-decoration: none"
+            ><i class="fas fa-bookmark" style="color: white"></i>
+              Recharge</a
+            >
+          </li>
+          <li style="background-color: #3e8e41">
+            <a
+              routerLink="/creancier"
+              style="color: white; text-decoration: none"
+            ><i class="fas fa-cog" style="color: white"></i> Creancier</a
+            >
+          </li>
+          <li><i class="fas fa-user" style="color: white"></i> Profile</li>
+          <li><i class="fas fa-sign-out-alt" style="color: white"></i> Logout</li>
+        </ul>
       </div>
-      <button (click)="openPayForm(creancier.nom)">Payer</button>
     </div>
-  </div>
-
-  <div *ngIf="isHistoriqueVisible" class="historique-container">
-    <h2>Historique des paiements</h2>
-    <div *ngFor="let paiement of getHistoriqueForUser()">
-      <p>{{ paiement.nom }} {{ paiement.prenom }} a payé {{ paiement.montant }}€ à {{ paiement.creancier }} le {{ paiement.date }}</p>
-    </div>
-  </div>
-
-  <div *ngIf="isPayFormVisible" class="modal-overlay" (click)="closePayForm()"></div>
-  <div *ngIf="isPayFormVisible" class="modal">
-    <div class="modal-header">
-      <span>Effectuer un paiement</span>
-      <button class="close-btn" (click)="closePayForm()">&times;</button>
-    </div>
-    <div class="modal-content">
-      <h3>Payer {{ selectedCreancierNom }}</h3>
-      <form (submit)="submitPayForm()">
-        <div class="form-group">
-          <label for="montant">Montant (en €)</label>
-          <input type="number" [(ngModel)]="montant" name="montant" id="montant" required class="form-input" />
+  
+    <!-- Main Content -->
+    <div class="payment-container">
+      <h1>Paiement de facture</h1>
+      <div class="tabs">
+        <button class="tab active">Liste des créanciers</button>
+        <button class="tab">Historique</button>
+      </div>
+      <div class="filter-container">
+        <select (change)="onFilterChange($event)">
+          <option value="all">Toutes les catégories</option>
+          <option value="taxes">Impôts, Taxes et Frais Portuaires</option>
+          <option value="electricity_water">Eau et Électricité</option>
+          <option value="internet_purchases">Achats Internet</option>
+        </select>
+      </div>
+      <div class="creditor-grid">
+        <div
+          class="creditor-card"
+          *ngFor="let creditor of filteredCreditors"
+          [routerLink]="'/facture'"
+          style="cursor: pointer;"
+        >
+          <img [src]="creditor.image" [alt]="creditor.name" />
+          <h3>{{ creditor.name }}</h3>
+          <p>{{ creditor.description }}</p>
         </div>
-        <div class="modal-footer">
-          <button type="button" (click)="closePayForm()">Annuler</button>
-          <button type="submit">Valider</button>
-        </div>
-      </form>
+      </div>
     </div>
   </div>
-</div>
+  </body>

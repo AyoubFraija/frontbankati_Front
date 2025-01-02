@@ -1,122 +1,183 @@
-import {Component, HostListener} from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChildren, QueryList } from '@angular/core';
 import jsPDF from "jspdf";
-import {CommonModule, NgClass} from "@angular/common";
-import {FormsModule} from "@angular/forms";
+import { CommonModule, NgClass } from "@angular/common";
+import { FormsModule } from "@angular/forms";
+import { RouterLink } from "@angular/router";
+
+interface Creditor {
+  name: string;
+  description: string;
+  image: string;
+  category: 'taxes' | 'electricity_water' | 'internet_purchases' | 'all';
+}
 
 @Component({
   selector: 'app-creancier',
   standalone: true,
-    imports: [
-      CommonModule,
-      NgClass,
-      FormsModule
-    ],
+  imports: [
+    CommonModule,
+    NgClass,
+    FormsModule,
+    RouterLink
+  ],
   templateUrl: './creancier.component.html',
   styleUrl: './creancier.component.css'
 })
 export class CreancierComponent {
-  isFactureVisible = true;
-  isHistoriqueVisible = false;
-  isButtonVisible: boolean = true;
+  creditors: Creditor[] = [
+    {
+      name: 'IAM RECHARGES',
+      description: 'Téléphonie et Internet SIM',
+      image: 'assets/facture/maroctelecom.png',
+      category: 'internet_purchases',
+    },
+    {
+      name: 'IAM FACTURES',
+      description: 'Produit Internet SIM, Produit Fixe SIM, Produit Mobile SIM',
+      image: 'assets/facture/maroctelecom.png',
+      category: 'internet_purchases',
+    },
+    {
+      name: 'REDAL',
+      description: 'Factures Redal',
+      image: 'assets/facture/redal.png',
+      category: 'electricity_water',
+    },
+    {
+      name: 'AMENDIS TANGER',
+      description: 'Factures Amendis Tanger',
+      image: 'assets/facture/amendis.png',
+      category: 'electricity_water',
+    },
+    {
+      name: 'LYDEC',
+      description: 'Factures Lydec',
+      image: 'assets/facture/lydec.png',
+      category: 'electricity_water',
+    },
+    {
+      name: 'Marsa Maroc',
+      description: 'Frais portuaires',
+      image: 'assets/facture/Marsa-Maroc.jpg',
+      category: 'taxes',
+    },
+    {
+      name: 'CMA-CGM',
+      description: 'Frais de transport maritime',
+      image: 'assets/facture/cma.png',
+      category: 'taxes',
+    },
+    {
+      name: 'ANCFCC - Droits de conservation',
+      description: 'Paiement des droits de conservation',
+      image: 'assets/facture/ANCFCC - Droits de conservation.jpeg',
+      category: 'taxes',
+    },
+    {
+      name: 'ANCFCC - Consultations et commandes',
+      description: 'Consultation et commandes ANCFCC',
+      image: 'assets/facture/ANCFCC - Droits de conservation.jpeg',
+      category: 'taxes',
+    },
+    {
+      name: 'Ministère de la justice',
+      description: 'Paiement des droits du ministère de la justice',
+      image: 'assets/facture/Ministère de la justice.png',
+      category: 'taxes',
+    },
+    {
+      name: 'CNSS Travailleurs non-salariés',
+      description: 'Paiement des cotisations CNSS',
+      image: 'assets/facture/cnss.png',
+      category: 'taxes'
+    },
+    {
+      name: 'RADEM',
+      description: 'Factures d\'eau et d\'électricité',
+      image: 'assets/facture/radem.jpeg',
+      category: 'electricity_water'
+    },
+    {
+      name: 'RAK',
+      description: 'Factures d\'eau et d\'électricité',
+      image: 'assets/facture/RAK.jpeg',
+      category: 'electricity_water',
+    },
+    {
+      name: 'SRM Souss-Massa (Zone Ex RAMSA)',
+      description: 'Factures d\'eau et d\'électricité',
+      image: 'assets/facture/srm_souss_massa.png',
+      category: 'electricity_water',
+    },
+    {
+      name: 'RADEEF',
+      description: 'Factures d\'eau et d\'électricité',
+      image: 'assets/facture/RADEEF.jpeg',
+      category: 'electricity_water',
+    },
+    {
+      name: 'RADEETA',
+      description: 'Factures d\'eau et d\'électricité',
+      image: 'assets/facture/RADEETA.jpeg',
+      category: 'electricity_water',
+    },
+    {
+      name: 'RADEET',
+      description: 'Factures d\'eau et d\'électricité',
+      image: 'assets/facture/RADEET.jpeg',
+      category: 'electricity_water',
+    },
+    {
+      name: 'Express Relais',
+      description: 'Achat en ligne',
+      image: 'assets/facture/Express Relais.png',
+      category: 'internet_purchases',
+    },
+    {
+      name: 'Winxo',
+      description: 'Achat en ligne',
+      image: 'assets/facture/Winxo.png',
+      category: 'internet_purchases',
+    },
+    {
+      name: 'Royal Air Maroc',
+      description: 'Achat en ligne',
+      image: 'assets/facture/Royal Air Maroc.png',
+      category: 'internet_purchases',
+    },
+    {
+      name: 'AFRIQUIA',
+      description: 'Achat en ligne',
+      image: 'assets/facture/AFRIQUIA.png',
+      category: 'internet_purchases',
+    },
+    {
+      name: 'Atlas Voyages',
+      description: 'Achat en ligne',
+      image: 'assets/facture/atlas voyage.png',
+      category: 'internet_purchases',
+    },
 
-  creanciers = [
-    { nom: 'Creancier 1', service: 'Service 1' },
-    { nom: 'Creancier 2', service: 'Service 2' },
-    { nom: 'Creancier 3', service: 'Service 3' }
   ];
 
-  historiquePaiement = [
-    { nom: 'John', prenom: 'Doe', montant: 100, creancier: 'Creancier 1', date: '2024-12-01', userId: 'user1' },
-    { nom: 'Jane', prenom: 'Smith', montant: 200, creancier: 'Creancier 2', date: '2024-12-05', userId: 'user2' },
-    { nom: 'John', prenom: 'Doe', montant: 150, creancier: 'Creancier 3', date: '2024-12-10', userId: 'user1' }
-  ];
+  filteredCreditors: Creditor[] = [...this.creditors]; // Initial list is all creditors
+  selectedCategory: 'all' | 'taxes' | 'electricity_water' | 'internet_purchases' = 'all'; // Initial filter category is 'all'
 
-  currentUser = { id: 'user1', name: 'John Doe' };
-
-  @HostListener('window:scroll', ['$event'])
-  onScroll(event: any) {
-    const scrollPosition = window.scrollY;
-    const pageHeight = document.documentElement.scrollHeight;
-    const windowHeight = window.innerHeight;
-
-    if (scrollPosition + windowHeight >= pageHeight - 50) {
-      this.isButtonVisible = false;
+  // Filter the creditors based on the selected category
+  filterCreditors(category: 'all' | 'taxes' | 'electricity_water' | 'internet_purchases') {
+    this.selectedCategory = category; // Update currently selected category
+    if (category === 'all') {
+      this.filteredCreditors = [...this.creditors]; // Show all creditors
     } else {
-      this.isButtonVisible = true;
+      this.filteredCreditors = this.creditors.filter(
+        (creditor) => creditor.category === category
+      ); // Filter creditors based on the category
     }
   }
-
-  showFacture() {
-    this.isFactureVisible = true;
-    this.isHistoriqueVisible = false;
+  onFilterChange(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    const selectedValue = target.value as  'all' | 'taxes' | 'electricity_water' | 'internet_purchases';
+    this.filterCreditors(selectedValue);
   }
 
-  showHistorique() {
-    this.isFactureVisible = false;
-    this.isHistoriqueVisible = true;
-  }
-
-  getHistoriqueForUser() {
-    return this.historiquePaiement.filter(paiement => paiement.userId === this.currentUser.id);
-  }
-
-  getImageUrl(nom: string) {
-    const imageMap = {
-      'Creancier 1': 'assets/OIP.jpg',
-      'Creancier 2': 'assets/OIP1.jpg',
-      'Creancier 3': 'assets/redal.jpg'
-    };
-    // @ts-ignore
-    return imageMap[nom] || 'assets/bank.jpg';
-  }
-
-  isPayFormVisible = false;
-  selectedCreancierNom: string | null = null;
-  montant: number = 0;
-
-  openPayForm(creancierNom: string) {
-    this.selectedCreancierNom = creancierNom;
-    this.isPayFormVisible = true;
-  }
-
-  closePayForm() {
-    this.isPayFormVisible = false;
-    this.selectedCreancierNom = null;
-    this.montant = 0;
-  }
-
-  submitPayForm() {
-    if (!this.selectedCreancierNom || this.montant <= 0) {
-      alert("Veuillez saisir un montant valide.");
-      return;
-    }
-
-    alert(`Paiement de ${this.montant}€ effectué pour ${this.selectedCreancierNom}`);
-
-    console.log('Calling generatePdf...'); // Debug log
-    this.generatePdf();
-
-    this.closePayForm();
-  }
-
-  // Méthode pour générer un fichier PDF
-  generatePdf() {
-    try {
-      console.log('Generating PDF...'); // Debug log
-      const doc = new jsPDF();
-      const date = new Date().toLocaleDateString();
-
-      doc.setFontSize(16);
-      doc.text('Facture de Paiement', 20, 20);
-      doc.setFontSize(12);
-      doc.text(`Créancier : ${this.selectedCreancierNom}`, 20, 40);
-      doc.text(`Montant : ${this.montant} €`, 20, 50);
-      doc.text(`Date : ${date}`, 20, 60);
-
-      doc.save(`Facture_${this.selectedCreancierNom}_${date}.pdf`);
-      console.log('PDF generated and saved.'); // Debug log
-    } catch (error) {
-      console.error('Error generating PDF:', error); // Debug log for errors
-    }
-  }
 }
