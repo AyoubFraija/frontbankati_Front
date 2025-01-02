@@ -1,0 +1,85 @@
+<body>
+    <div class="sidebar">
+        <div class="test">
+            <ul>
+                <li><a routerLink="/dashboard" style="color: white; text-decoration: none"><i
+                            class="fas fa-tachometer-alt" style="color: white"></i> Dashboard</a></li>
+                <li><a routerLink="/cart" style="color: white; text-decoration: none"><i class="fas fa-credit-card"
+                            style="color: white"></i> Bank Card</a></li>
+                <li><a routerLink="/facture" style="color: white; text-decoration: none"><i class="fas fa-file-invoice"
+                            style="color: white"></i> Factures</a></li>
+                <li style="background-color: #3e8e41;"><a routerLink="/virement"
+                        style="color: white; text-decoration: none"><i class="fas fa-chart-bar"
+                            style="color: white"></i> Virement</a></li>
+                <li><a routerLink="/recharge" style="color: white; text-decoration: none"><i class="fas fa-bookmark"
+                            style="color: white"></i> Recharge</a></li>
+                <li>
+                    <a routerLink="/creancier" style="color: white; text-decoration: none"><i class="fas fa-cog"
+                            style="color: white"></i> Creancier</a>
+                </li>
+                <li><i class="fas fa-user" style="color: white"></i> Profile</li>
+                <li><i class="fas fa-sign-out-alt" style="color: white"></i> Logout</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="container">
+            <h1>Effectuer un Virement</h1>
+            <div class="separator"></div>
+
+            <div class="transfer-form">
+                <div class="form-group">
+                    <label for="beneficiaryRIB">RIB du Bénéficiaire</label>
+                    <div class="input-group">
+                        <input type="text" id="beneficiaryRIB" [(ngModel)]="beneficiaryRIB"
+                            placeholder="RIB du bénéficiaire" aria-label="Beneficiary RIB">
+                        <button class="add-beneficiary-btn" (click)="openBeneficiaryModal()"><i
+                                class="fas fa-user-plus"></i></button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="amount">Montant</label>
+                    <input type="number" id="amount" [(ngModel)]="amount" placeholder="Entrer le montant"
+                        aria-label="Amount">
+                </div>
+
+                <div class="form-group">
+                    <label for="reason">Motif</label>
+                    <input type="text" id="reason" [(ngModel)]="reason" placeholder="Entrer le motif"
+                        aria-label="Reason">
+                </div>
+
+                <div class="form-group">
+                    <label for="executionDate">Date d'exécution</label>
+                    <div class="input-group">
+                        <input type="text" id="executionDate" [(ngModel)]="executionDate" placeholder="Maintenant"
+                            aria-label="Execution Date" readonly>
+                        <button class="date-picker-btn" (click)="openDatePicker()"><i
+                                class="fas fa-calendar-alt"></i></button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="recurringOrder" class="switch-label">
+                        <input type="checkbox" id="recurringOrder" [(ngModel)]="recurringOrder" class="switch-input">
+                        <span class="slider round"></span>
+                        Saisir un ordre permanent
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <button (click)="transfer()" class="submit-btn">Valider</button>
+                </div>
+            </div>
+
+            <div class="details">
+            </div>
+
+            <div class="footer">
+                <p>Tous les virements sont sécurisés et traités dans les plus brefs délais.</p>
+            </div>
+        </div>
+    </div>
+</body>

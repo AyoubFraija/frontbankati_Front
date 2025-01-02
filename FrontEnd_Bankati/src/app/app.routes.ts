@@ -12,13 +12,15 @@ import { CartComponent } from './cart/cart.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { AdminComponent } from './admin/admin.component';
 import { CreancierComponent } from './creancier/creancier.component';
-import {Routes} from "@angular/router";
-import {AuthGuard} from "./service/AuthGuard.service";
-import {CreateClientGuard} from "./guards/create-client.guard";
+import { Routes } from "@angular/router";
+import { AuthGuard } from "./service/AuthGuard.service";
+import { CreateClientGuard } from "./guards/create-client.guard";
 import { CartDetailsComponent } from './cart-details/cart-details.component';
 import { CarteCreationComponent } from './carte-creation/carte-creation.component';
 import { CryptoWalletComponent } from './crypto-wallet/crypto-wallet.component';
 import { CardFormComponent } from './card-form/card-form.component';
+import { VirementComponent } from './virement/virement.component';
+import { RechargeComponent } from './recharge/recharge.component';
 
 
 export const routes: Routes = [
@@ -54,14 +56,14 @@ export const routes: Routes = [
   {
     path: 'currency',
     component: CurrencyConverterComponent,
-    canActivate: [AuthGuard],
-    data: { roles: ['ROLE_CLIENT'] }  // Seuls les clients peuvent accéder à currency
+    // canActivate: [AuthGuard],
+    // data: { roles: ['ROLE_CLIENT'] }  // Seuls les clients peuvent accéder à currency
   },
   {
     path: 'converter',
     component: CurrencyConverterComponent,
-    canActivate: [AuthGuard],
-    data: { roles: ['ROLE_CLIENT'] }  // Seuls les clients peuvent accéder à converter
+    // canActivate: [AuthGuard],
+    // data: { roles: ['ROLE_CLIENT'] }  // Seuls les clients peuvent accéder à converter
   },
   {
     path: 'side-bar',
@@ -74,14 +76,14 @@ export const routes: Routes = [
   {
     path: 'facture',
     component: FactureComponent,
-    canActivate: [AuthGuard],
-    data: { roles: ['ROLE_CLIENT'] }  // Seuls les clients peuvent accéder à facture
+    // canActivate: [AuthGuard],
+    // data: { roles: ['ROLE_CLIENT'] }  // Seuls les clients peuvent accéder à facture
   },
   {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivate: [AuthGuard],
-    data: { roles: ['ROLE_CLIENT'] }  // Seuls les clients peuvent accéder au dashboard
+    // canActivate: [AuthGuard],
+    // data: { roles: ['ROLE_CLIENT'] }  // Seuls les clients peuvent accéder au dashboard
   },
   {
     path: 'cart',
@@ -106,7 +108,15 @@ export const routes: Routes = [
     path: 'carteForm', component: CarteCreationComponent
   },
   {
-    path:'cryptoWallet',component: CryptoWalletComponent
+    path: 'cryptoWallet', component: CryptoWalletComponent
   },
-  { path:'form', component:CardFormComponent},
+  { path: 'form', component: CardFormComponent },
+  {
+    path: 'virement',
+    component: VirementComponent
+  },
+  {
+    path: 'recharge',
+    component: RechargeComponent
+  },
 ];

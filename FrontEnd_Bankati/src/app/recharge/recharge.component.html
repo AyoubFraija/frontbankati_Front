@@ -1,0 +1,100 @@
+<body>
+    <div class="sidebar">
+        <div class="test">
+            <ul>
+                <li><a routerLink="/dashboard" style="color: white; text-decoration: none"><i
+                            class="fas fa-tachometer-alt" style="color: white"></i> Dashboard</a></li>
+                <li><a routerLink="/cart" style="color: white; text-decoration: none"><i class="fas fa-credit-card"
+                            style="color: white"></i> Bank Card</a></li>
+                <li><a routerLink="/facture" style="color: white; text-decoration: none"><i class="fas fa-file-invoice"
+                            style="color: white"></i> Factures</a></li>
+                <li><a routerLink="/virement" style="color: white; text-decoration: none"><i class="fas fa-chart-bar"
+                            style="color: white"></i> Virement</a></li>
+                <li style="background-color: #3e8e41;"><a routerLink="/recharge"
+                        style="color: white; text-decoration: none"><i class="fas fa-bookmark" style="color: white"></i>
+                        Recharge</a></li>
+                <li>
+                    <a routerLink="/creancier" style="color: white; text-decoration: none"><i class="fas fa-cog"
+                            style="color: white"></i> Creancier</a>
+                </li>
+                <li><i class="fas fa-user" style="color: white"></i> Profile</li>
+                <li><i class="fas fa-sign-out-alt" style="color: white"></i> Logout</li>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        <div class="container">
+            <h1>Recharger Votre Téléphone</h1>
+            <div class="separator"></div>
+
+            <div class="recharge-form">
+                <div class="form-group">
+                    <label for="operator">Opérateur</label>
+                    <select id="operator" [(ngModel)]="operator" aria-label="Operator">
+                        <option value="">-- Choisir un opérateur --</option>
+                        <option value="inwi">Recharge inwi</option>
+                        <option value="orange">Recharge Orange</option>
+                        <option value="marocTelecom">Recharge Maroc Telecom</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="phoneNumber">Numéro de Téléphone</label>
+                    <input type="tel" id="phoneNumber" [(ngModel)]="phoneNumber" placeholder="Numéro de téléphone"
+                        aria-label="Phone Number">
+                </div>
+
+                <div class="form-group">
+                    <label for="rechargeAmount">Montant de Recharge</label>
+                    <select id="rechargeAmount" [(ngModel)]="rechargeAmount" aria-label="Recharge Amount">
+                        <option value="">-- Choisir un montant --</option>
+                        <option value="5">5 DH</option>
+                        <option value="10">10 DH</option>
+                        <option value="20">20 DH</option>
+                        <option value="30">30 DH</option>
+                        <option value="40">40 DH</option>
+                        <option value="50">50 DH</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button (click)="openOffersModal()" class="submit-btn">Recharger</button>
+                </div>
+            </div>
+
+            <div class="details">
+            </div>
+
+            <div class="footer">
+                <p>Rechargez votre téléphone en toute sécurité et rapidité.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Offers Modal -->
+    <div class="modal" [class.open]="isModalOpen">
+        <div class="modal-content">
+            <span class="close-button" (click)="closeOffersModal()">×</span>
+            <h2>Offres disponibles</h2>
+            <div class="form-group">
+                <ul class="offers-list">
+                    <li *ngFor="let offer of availableOffers; let i = index">
+                        <input type="radio" id="offer-{{ i }}" name="offers" value="{{ offer }}"
+                            [checked]="selectedOffer === offer" (change)="selectOffer(offer)">
+                        <label for="offer-{{ i }}">{{ offer }}</label>
+                    </li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <label for="account">Compte chèque</label>
+                <select id="account" [(ngModel)]="account" aria-label="Check Account">
+                    <option value="">-- Choisir un compte --</option>
+                    <option value="account1">Compte 1</option>
+                    <option value="account2">Compte 2</option>
+                </select>
+            </div>
+            <div class="total">Total: {{ rechargeAmount }} DH</div>
+            <div class="form-group">
+                <button (click)="rechargePhone()" class="submit-btn">Valider</button>
+            </div>
+        </div>
+    </div>
+</body>

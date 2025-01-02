@@ -5,55 +5,40 @@
       <div class="test">
         <ul>
           <li>
-            <a routerLink="/dashboard" style="color: white; text-decoration: none"
-            ><i class="fas fa-tachometer-alt" style="color: white"></i>
-              Dashboard</a
-            >
+            <a routerLink="/dashboard" style="color: white; text-decoration: none"><i class="fas fa-tachometer-alt"
+                style="color: white"></i>
+              Dashboard</a>
           </li>
           <li>
-            <a routerLink="/cart" style="color: white; text-decoration: none"
-            ><i class="fas fa-credit-card" style="color: white"></i> Bank
-              Card</a
-            >
+            <a routerLink="/cart" style="color: white; text-decoration: none"><i class="fas fa-credit-card"
+                style="color: white"></i> Bank
+              Card</a>
           </li>
           <li>
-            <a routerLink="/facture" style="color: white; text-decoration: none"
-            ><i class="fas fa-file-invoice" style="color: white"></i>
-              Factures</a
-            >
+            <a routerLink="/facture" style="color: white; text-decoration: none"><i class="fas fa-file-invoice"
+                style="color: white"></i>
+              Factures</a>
           </li>
           <li>
-            <a routerLink="/currency" style="color: white; text-decoration: none"
-            ><i class="fas fa-coins"></i> Converter</a
-            >
+            <a routerLink="/virement" style="color: white; text-decoration: none"><i class="fas fa-chart-bar"
+                style="color: white"></i>
+              Virement</a>
           </li>
           <li>
-            <a
-              routerLink="/virement"
-              style="color: white; text-decoration: none"
-            ><i class="fas fa-chart-bar" style="color: white"></i>
-              Virement</a
-            >
-          </li>
-          <li>
-            <a routerLink="/recharge" style="color: white; text-decoration: none"
-            ><i class="fas fa-bookmark" style="color: white"></i>
-              Recharge</a
-            >
+            <a routerLink="/recharge" style="color: white; text-decoration: none"><i class="fas fa-bookmark"
+                style="color: white"></i>
+              Recharge</a>
           </li>
           <li style="background-color: #3e8e41">
-            <a
-              routerLink="/creancier"
-              style="color: white; text-decoration: none"
-            ><i class="fas fa-cog" style="color: white"></i> Creancier</a
-            >
+            <a routerLink="/creancier" style="color: white; text-decoration: none"><i class="fas fa-cog"
+                style="color: white"></i> Creancier</a>
           </li>
           <li><i class="fas fa-user" style="color: white"></i> Profile</li>
           <li><i class="fas fa-sign-out-alt" style="color: white"></i> Logout</li>
         </ul>
       </div>
     </div>
-  
+
     <!-- Main Content -->
     <div class="payment-container">
       <h1>Paiement de facture</h1>
@@ -70,12 +55,8 @@
         </select>
       </div>
       <div class="creditor-grid">
-        <div
-          class="creditor-card"
-          *ngFor="let creditor of filteredCreditors"
-          [routerLink]="'/facture'"
-          style="cursor: pointer;"
-        >
+        <div class="creditor-card" *ngFor="let creditor of filteredCreditors" [routerLink]="'/facture'"
+          style="cursor: pointer;">
           <img [src]="creditor.image" [alt]="creditor.name" />
           <h3>{{ creditor.name }}</h3>
           <p>{{ creditor.description }}</p>
@@ -83,4 +64,4 @@
       </div>
     </div>
   </div>
-  </body>
+</body>

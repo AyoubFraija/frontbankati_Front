@@ -77,22 +77,34 @@
 <!--    <p>EUR/USD pour la période de 24 heures se terminant le vendredi 6 décembre 2024, 23:59 UTC.</p>-->
 <!--  </div>-->
 <!--</div>-->
+
 <body>
   <div class="sidebar">
     <div class="test">
       <ul>
-        <li><a routerLink="/dashboard" style="color: white; text-decoration: none"><i class="fas fa-tachometer-alt" style="color: white"></i> Dashboard</a></li>
-        <li><a routerLink="/cart" style="color: white; text-decoration: none"><i class="fas fa-credit-card" style="color: white"></i> Bank Card</a></li>
-        <li><a routerLink="/facture" style="color: white; text-decoration: none"><i class="fas fa-file-invoice" style="color: white"></i> Factures</a></li>
-        <li><i class="fas fa-chart-bar" style="color: white"></i> Analytics</li>
-        <li><i class="fas fa-bookmark" style="color: white"></i> Bookmarks</li>
-        <li><i class="fas fa-cog" style="color: white"></i> Settings</li>
+        <li style="color: white; text-decoration: none"><a routerLink="/dashboard"
+            style="color: white; text-decoration: none"><i class="fas fa-tachometer-alt" style="color: white"></i>
+            Dashboard</a></li>
+        <li><a routerLink="/cart" style="color: white; text-decoration: none"><i class="fas fa-credit-card"
+              style="color: white"></i> Bank Card</a></li>
+        <li><a routerLink="/facture" style="color: white; text-decoration: none"><i class="fas fa-file-invoice"
+              style="color: white"></i> Factures</a></li>
+        <li><a routerLink="/currency" style="background-color: #3e8e41;"><i class="fas fa-coins"></i>
+            Converter</a></li>
+        <li><a routerLink="/virement" style="color: white; text-decoration: none"><i class="fas fa-chart-bar"
+              style="color: white"></i> Virement</a></li>
+        <li><a routerLink="/recharge" style="color: white; text-decoration: none"><i class="fas fa-bookmark"
+              style="color: white"></i> Recharge</a></li>
+        <li>
+          <a routerLink="/creancier" style="color: white; text-decoration: none"><i class="fas fa-cog"
+              style="color: white"></i> Creancier</a>
+        </li>
         <li><i class="fas fa-user" style="color: white"></i> Profile</li>
         <li><i class="fas fa-sign-out-alt" style="color: white"></i> Logout</li>
       </ul>
     </div>
   </div>
-  
+
   <div class="content">
     <div class="container">
       <h1>Convertisseur des devises</h1>
@@ -106,16 +118,17 @@
           <!-- <p aria-label="Montant à convertir">{{ portefeuille.solde }}</p> -->
           <input type="number" [(ngModel)]="convertedAmount" placeholder="{{ carte.solde }}" readonly>
         </div>
-  
+
         <div class="switch">
-          <img src="assets/images/icons8-change-96.png" alt="Description of image" style="width: 100px; height: 100px; margin-right: 20px;" (click)="convert(toCurrency,carte)">
+          <img src="assets/images/icons8-change-96.png" alt="Description of image"
+            style="width: 100px; height: 100px; margin-right: 20px;" (click)="convert(toCurrency,carte)">
         </div>
-  
+
         <div class="to">
           <label for="toCurrency" class="sr-only">Devise de destination</label>
           <div class="currency-selector">
             <img [src]="getFlagUrl(toCurrency)" alt="Drapeau" class="flag">
-            <select [(ngModel)]="toCurrency"  id="toCurrency" aria-label="Devise de destination">
+            <select [(ngModel)]="toCurrency" id="toCurrency" aria-label="Devise de destination">
               <option value="USD">USD - Dollar américain</option>
               <option value="EUR">EUR - Euro</option>
               <option value="MAD">MAD - Dirham</option>
@@ -123,23 +136,23 @@
           </div>
         </div>
       </div>
-  
+
       <div class="info">
         <p class="expected-balance">Solde attendu : {{expectedAmount()}} {{toCurrency}}</p>
       </div>
-  
+
       <div class="chart-container">
         <canvas id="myChart"></canvas>
       </div>
-  
+
       <div class="details">
         <table>
           <thead>
-          <tr>
-            <th>Devise à vendre</th>
-            <th>Devise à acheter</th>
-            <th>Taux</th>
-          </tr>
+            <tr>
+              <th>Devise à vendre</th>
+              <th>Devise à acheter</th>
+              <th>Taux</th>
+            </tr>
           </thead>
           <tbody>
             <tr *ngFor="let key of ['EUR', 'MAD', 'USD']">
@@ -152,4 +165,4 @@
       </div>
     </div>
   </div>
-  </body>
+</body>

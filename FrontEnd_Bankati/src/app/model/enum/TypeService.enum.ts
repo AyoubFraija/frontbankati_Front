@@ -1,0 +1,9 @@
+export enum TypeService {
+    ABONNEMENT_WIFI,
+    ABONNEMENT_MOBILE,
+    DON,
+    FACTURE_EAU,
+    FACTURE_ELECTRICITE,
+    RECHARGE
+
+}

@@ -1,80 +1,86 @@
 <body>
-<div class="sidebar">
-  <div class="test">
-    <ul>
-      <li style="background-color: #3e8e41;"><a routerLink="/dashboard" style="color: white; text-decoration: none"><i class="fas fa-tachometer-alt" style="color: white"></i> Dashboard</a></li>
-      <li><a routerLink="/cart" style="color: white; text-decoration: none"><i class="fas fa-credit-card" style="color: white"></i> Bank Card</a></li>
-      <li><a routerLink="/facture" style="color: white; text-decoration: none"><i class="fas fa-file-invoice" style="color: white"></i> Factures</a></li>
-      <li><a routerLink="/currency" style="color: white; text-decoration: none"><i class="fas fa-coins"></i> Converter</a></li>
-      <li><i class="fas fa-chart-bar" style="color: white"></i> Analytics</li>
-      <li><i class="fas fa-bookmark" style="color: white"></i> Bookmarks</li>
-      <li><i class="fas fa-cog" style="color: white"></i> Settings</li>
-      <li><i class="fas fa-user" style="color: white"></i> Profile</li>
-      <li><i class="fas fa-sign-out-alt" style="color: white"></i> Logout</li>
-    </ul>
+  <div class="sidebar">
+    <div class="test">
+      <ul>
+        <li style="background-color: #3e8e41;"><a routerLink="/dashboard" style="color: white; text-decoration: none"><i
+              class="fas fa-tachometer-alt" style="color: white"></i> Dashboard</a></li>
+        <li><a routerLink="/cart" style="color: white; text-decoration: none"><i class="fas fa-credit-card"
+              style="color: white"></i> Bank Card</a></li>
+        <li><a routerLink="/facture" style="color: white; text-decoration: none"><i class="fas fa-file-invoice"
+              style="color: white"></i> Factures</a></li>
+        <li><a routerLink="/virement" style="color: white; text-decoration: none"><i class="fas fa-chart-bar"
+              style="color: white"></i> Virement</a></li>
+        <li><a routerLink="/recharge" style="color: white; text-decoration: none"><i class="fas fa-bookmark"
+              style="color: white"></i> Recharge</a></li>
+        <li>
+          <a routerLink="/creancier" style="color: white; text-decoration: none"><i class="fas fa-cog"
+              style="color: white"></i> Creancier</a>
+        </li>
+        <li><i class="fas fa-user" style="color: white"></i> Profile</li>
+        <li><i class="fas fa-sign-out-alt" style="color: white"></i> Logout</li>
+      </ul>
+    </div>
   </div>
-</div>
-
-<div class="content">
-  <div class="card">
-    <div class="header">
-      <div class="profile-info">
-        <div class="avatar">
-          <i class="fa fa-thin fa-user" style="color:#4CAF50; font-size: 80px;"></i>
+  <div class="content">
+    <div class="card">
+      <div class="header">
+        <div class="profile-info">
+          <div class="avatar">
+            <i class="fa fa-thin fa-user" style="color:#4CAF50; font-size: 80px;"></i>
+          </div>
+          <div class="user-details">
+            <h2>Jean Dupont</h2>
+            <p><i class="fa-regular fa-envelope"></i> jean.dupontgmail.com</p>
+            <p><i class="fa-solid fa-phone"></i> 06 01 02 03 04</p>
+          </div>
         </div>
-        <div class="user-details">
-          <h2>Jean Dupont</h2>
-          <p><i class="fa-regular fa-envelope"></i> jean.dupontgmail.com</p>
-          <p><i class="fa-solid fa-phone"></i> 06 01 02 03 04</p>
+        <div class="payment-info">
+          <div class="paid">
+            <p>Payé:</p>
+            <h3>430€</h3>
+          </div>
+          <div class="remaining">
+            <p>Restant dû:</p>
+            <h3>230€</h3>
+          </div>
         </div>
       </div>
-      <div class="payment-info">
-        <div class="paid">
-          <p>Payé:</p>
-          <h3>430€</h3>
+      <div class="card-body">
+        <div class="transactions">
+          <h3>Historique de transactions</h3>
+          <div class="transaction-item">
+            <i class="fa-regular fa-credit-card"></i>
+            <span>70,00€</span>
+            <span class="badge success">Validé</span>
+          </div>
+          <div class="transaction-item">
+            <i class="fa-regular fa-credit-card"></i>
+            <span>110,00€</span>
+            <span class="badge success">Validé</span>
+          </div>
+          <div class="transaction-item">
+            <i class="fa-regular fa-credit-card"></i>
+            <span>250,00€</span>
+            <span class="badge pending">En attente</span>
+          </div>
         </div>
-        <div class="remaining">
-          <p>Restant dû:</p>
-          <h3>230€</h3>
+        <div class="payment-methods">
+          <h3>Supports enregistrés</h3>
+          <div class="payment-method">
+            <i class="fa-regular fa-credit-card"></i>
+            <span>**** **34</span>
+            <span class="badge default">Par défaut</span>
+          </div>
+          <h3>Paiements dus</h3>
+          <div class="payment-due">
+            <i class="fa-regular fa-credit-card"></i>
+            <span>230,00€</span>
+            <span class="badge unpaid">Non payé</span>
+          </div>
         </div>
       </div>
     </div>
-    <div class="card-body">
-      <div class="transactions">
-        <h3>Historique de transactions</h3>
-        <div class="transaction-item">
-          <i class="fa-regular fa-credit-card"></i>
-          <span>70,00€</span>
-          <span class="badge success">Validé</span>
-        </div>
-        <div class="transaction-item">
-          <i class="fa-regular fa-credit-card"></i>
-          <span>110,00€</span>
-          <span class="badge success">Validé</span>
-        </div>
-        <div class="transaction-item">
-          <i class="fa-regular fa-credit-card"></i>
-          <span>250,00€</span>
-          <span class="badge pending">En attente</span>
-        </div>
-      </div>
-      <div class="payment-methods">
-        <h3>Supports enregistrés</h3>
-        <div class="payment-method">
-          <i class="fa-regular fa-credit-card"></i>
-          <span>**** **34</span>
-          <span class="badge default">Par défaut</span>
-        </div>
-        <h3>Paiements dus</h3>
-        <div class="payment-due">
-          <i class="fa-regular fa-credit-card"></i>
-          <span>230,00€</span>
-          <span class="badge unpaid">Non payé</span>
-        </div>
-      </div>
+    <div class="card"> <!-- Second Card -->
     </div>
   </div>
-  <div class="card">  <!-- Second Card -->
-  </div>
-</div>
 </body>

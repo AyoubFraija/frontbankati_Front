@@ -2,6 +2,7 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  font-family: 'Arial', sans-serif;
 }
 
 body {
@@ -28,11 +29,12 @@ body {
   color: #043686;
 }
 /* Sidebar styles (no changes here) */
+/* Sidebar styles */
 .sidebar {
-  width: 320px;
+  width: 320px; /* Increased width */
   background-color: #343a40;
   color: white;
-  padding: 25px;
+  padding: 25px; /* Increased padding */
   height: 100vh;
   overflow-y: auto;
   position: fixed;
@@ -53,7 +55,7 @@ body {
 }
 
 .sidebar li {
-  padding: 20px 0;
+  padding: 20px 0; /* Increased padding */
   border-bottom: 1px solid #444;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -64,9 +66,10 @@ body {
 }
 
 .sidebar li i {
-  margin-right: 15px;
+  margin-right: 15px; /* Larger icons */
   font-size: 1.2em;
 }
+
 
 /* Card Container (keep the styles) */
 .card-container {
