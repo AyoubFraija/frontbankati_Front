@@ -1,0 +1,125 @@
+<body>
+    <div class="sidebar">
+        <div class="test">
+            <ul>
+              <li><a routerLink="/dashboard" style="color: white; text-decoration: none"><i class="fas fa-tachometer-alt" style="color: white"></i> Dashboard</a></li>
+              <li style="background-color: #3e8e41;"><a routerLink="/cart" style="color: white; text-decoration: none"><i class="fas fa-credit-card" style="color: white"></i> Bank Card</a></li>
+              <li><a routerLink="/facture" style="color: white; text-decoration: none"><i class="fas fa-file-invoice" style="color: white"></i> Factures</a></li>
+              <li><i class="fas fa-chart-bar" style="color: white"></i> Analytics</li>
+              <li><i class="fas fa-bookmark" style="color: white"></i> Bookmarks</li>
+              <li><i class="fas fa-cog" style="color: white"></i> Settings</li>
+              <li><i class="fas fa-user" style="color: white"></i> Profile</li>
+              <li><i class="fas fa-sign-out-alt" style="color: white"></i> Logout</li>
+            </ul>
+        </div>
+    </div>
+    <main class="content-area">
+        <div class="title">
+            <h1>Information sur la Carte Virtuelle</h1>
+          <button class="button_back">
+            <svg height="16" width="16" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1024 1024"><path d="M874.690416 495.52477c0 11.2973-9.168824 20.466124-20.466124 20.466124l-604.773963 0 188.083679 188.083679c7.992021 7.992021 7.992021 20.947078 0 28.939099-4.001127 3.990894-9.240455 5.996574-14.46955 5.996574-5.239328 0-10.478655-1.995447-14.479783-5.996574l-223.00912-223.00912c-3.837398-3.837398-5.996574-9.046027-5.996574-14.46955 0-5.433756 2.159176-10.632151 5.996574-14.46955l223.019353-223.029586c7.992021-7.992021 20.957311-7.992021 28.949332 0 7.992021 8.002254 7.992021 20.957311 0 28.949332l-188.073446 188.073446 604.753497 0C865.521592 475.058646 874.690416 484.217237 874.690416 495.52477z"></path></svg>
+            <span class="button_back_text" (click)="goBack()">Retour</span>
+          </button>
+
+
+        </div>
+        
+       <div class="main-card-container" >
+             <div class="top-row">
+                 <div class="info-card" (click)="navigateToConvert(carte)" >
+                    <div class="card-content">
+                        <div class="card-top">
+                            <span class="card-title"></span>
+                            <p>Devise de la carte</p>
+                        </div>
+                        <div class="card-bottom">
+                          <p>Convertir la devise de votre carte</p>
+                           <svg width="32" viewBox="0 -960 960 960" height="32" xmlns="http://www.w3.org/2000/svg"><path d="M226-160q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Zm254 0q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Zm254 0q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19ZM226-414q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Zm254 0q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Zm254 0q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19ZM226-668q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Zm254 0q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Zm254 0q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Z"></path></svg>
+                        </div>
+                    </div>
+                    <div class="card-image">
+                      <img src="/assets/images/icons8-currency-50.png"/>
+                    </div>
+                </div>
+                 <div class="info-card" (click)="openDialogPlafond()">
+                   <div class="card-content">
+                       <div class="card-top">
+                         <span class="card-title"></span>
+                         <p>Plafonds de la carte</p>
+                       </div>
+                       <div class="card-bottom">
+                         <p>Fixez le plafond de paiement de cette carte</p>
+                          <svg width="32" viewBox="0 -960 960 960" height="32" xmlns="http://www.w3.org/2000/svg"><path d="M226-160q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Zm254 0q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Zm254 0q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19ZM226-414q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Zm254 0q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Zm254 0q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19ZM226-668q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Zm254 0q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Zm254 0q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Z"></path></svg>
+                       </div>
+                   </div>
+                   <div class="card-image">
+                    <img src="/assets/images/icons8-money-50.png"/>
+                   </div>
+                 </div>
+                  <div class="info-card" (click)="openDialogStatus()">
+                     <div class="card-content">
+                        <div class="card-top">
+                          <span class="card-title"></span>
+                          <p>Statut de la carte</p>
+                        </div>
+                       <div class="card-bottom">
+                         <p>Activez/Désactiver cette carte</p>
+                            <svg width="32" viewBox="0 -960 960 960" height="32" xmlns="http://www.w3.org/2000/svg"><path d="M226-160q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Zm254 0q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Zm254 0q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19ZM226-414q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Zm254 0q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Zm254 0q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19ZM226-668q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Zm254 0q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Zm254 0q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Z"></path></svg>
+                       </div>
+                    </div>
+                    <div class="card-image">
+                      <img src="/assets/images/icons8-toggle-on-50.png"/>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom-row">
+               <div class="card-container" [ngClass]="getCardClass(couleur)" class="card-container">
+                 <div class="card">
+                    <img class="chip" src="/assets/images/chip.png"/>
+                    <img class="contactless" src="/assets/images/wifi-signal.png"/>
+                    <img class="visa"src="/assets/images/visa.png"/>
+                     <p class="card-number">{{ format(carte.numeroCarte) }}</p>
+                     <div class="arrow"></div>
+                     <p class="card-name">M John Doe</p>
+                     <p class="card-expire">Expire {{ carte.dateExpiration }}</p>
+                     <p class="bank-name">CVV {{carte.cvv}}</p>
+                  </div>
+              </div>
+               <div class="card-details-section">
+                   <div class="balance-container">
+                           <div class="balance-amount">{{carte.solde}} {{carte.devise}}</div>
+                           <div class="balance-limit">
+                            {{carte.solde}} {{carte.devise}} / from {{carte.solde_init}} {{carte.devise}}
+                             <div class="balance-bar-container">
+                              <div class="balance-bar" [ngStyle]="{'width.%': getRemainingBalancePercentage(carte)}"></div>
+                          </div>
+                        </div>
+                   </div>
+                   <div class="card-info-container">
+                     <div class="card-info-header">Information sur la carte</div>
+                     <div class="card-info-item">
+                       <span class="info-label">Card Name:</span>
+                       <span class="info-value">Main Card</span>
+                    </div>
+                    <div class="card-info-item">
+                        <span class="info-label">Plafond de la carte:</span>
+                        <span class="info-value"> {{carte.plafond}}</span>
+                     </div>
+                     <div class="card-info-item">
+                        <span class="info-label">Statut:</span>
+                        <span class="info-value">{{carte.statut}}</span>
+                     </div>
+                     <div class="card-info-item">
+                        <span class="info-label">Name:</span>
+                        <span class="info-value">Rara Avis</span>
+                      </div>
+                      <div class="card-info-item">
+                         <span class="info-label">Date d'expiration:</span>
+                         <span class="info-value">{{ carte.dateExpiration }}</span>
+                      </div>
+                 </div>
+               </div>
+            </div>
+       </div>
+    </main>
+  </body>

@@ -78,101 +78,78 @@
 <!--  </div>-->
 <!--</div>-->
 <body>
-<div class="sidebar">
-  <div class="test">
-    <ul>
-      <li><a routerLink="/dashboard" style="color: white; text-decoration: none"><i class="fas fa-tachometer-alt" style="color: white"></i> Dashboard</a></li>
-      <li><a routerLink="/cart" style="color: white; text-decoration: none"><i class="fas fa-credit-card" style="color: white"></i> Bank Card</a></li>
-      <li><a routerLink="/facture" style="color: white; text-decoration: none"><i class="fas fa-file-invoice" style="color: white"></i> Factures</a></li>
-      <li style="background-color: #3e8e41;"><a routerLink="/currency" style="color: white; text-decoration: none"><i class="fas fa-coins"></i> Converter</a></li>
-      <li><i class="fas fa-chart-bar" style="color: white"></i> Analytics</li>
-      <li><i class="fas fa-bookmark" style="color: white"></i> Bookmarks</li>
-      <li><i class="fas fa-cog" style="color: white"></i> Settings</li>
-      <li><i class="fas fa-user" style="color: white"></i> Profile</li>
-      <li><i class="fas fa-sign-out-alt" style="color: white"></i> Logout</li>
-    </ul>
-  </div>
-</div>
-
-<div class="content">
-  <div class="container">
-    <h1>Convertisseur de devises</h1>
-    <div class="separator"></div>
-    <div class="converter">
-      <div class="from">
-        <label for="fromCurrency" class="sr-only">Devise d'origine</label>
-        <div class="currency-selector">
-          <img [src]="getFlagUrl(fromCurrency)" alt="Drapeau" class="flag">
-          <select [(ngModel)]="fromCurrency" id="fromCurrency" aria-label="Devise d'origine">
-            <option value="EUR">EUR - Euro</option>
-            <option value="USD">USD - Dollar américain</option>
-            <option value="GBP">GBP - Livre sterling</option>
-            <option value="BTC">BTC - Bitcoin</option>
-          </select>
-        </div>
-        <input type="number" [(ngModel)]="amount" placeholder="Entrez un montant" aria-label="Montant à convertir">
-      </div>
-
-      <div class="switch">
-        <img src="assets/images/switch.png" alt="Switch" class="switch-img">
-      </div>
-
-      <div class="to">
-        <label for="toCurrency" class="sr-only">Devise de destination</label>
-        <div class="currency-selector">
-          <img [src]="getFlagUrl(toCurrency)" alt="Drapeau" class="flag">
-          <select [(ngModel)]="toCurrency" id="toCurrency" aria-label="Devise de destination">
-            <option value="USD">USD - Dollar américain</option>
-            <option value="EUR">EUR - Euro</option>
-            <option value="GBP">GBP - Livre sterling</option>
-            <option value="ETH">ETH - Ethereum</option>
-          </select>
-        </div>
-        <input type="number" [(ngModel)]="convertedAmount" placeholder="Montant converti" readonly>
-      </div>
-    </div>
-
-    <div class="info">
-      <p>Taux interbancaire : {{ exchangeRate }}</p>
-      <button (click)="convert()">Convertir</button>
-    </div>
-
-    <div class="chart-container">
-      <canvas id="myChart"></canvas>
-    </div>
-
-    <div class="details">
-      <table>
-        <thead>
-        <tr>
-          <th></th>
-          <th>Bid (Vente 1 EUR)</th>
-          <th>Ask (Achat 1 EUR)</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td>Min</td>
-          <td>1.05416</td>
-          <td>1.05432</td>
-        </tr>
-        <tr>
-          <td>Avg</td>
-          <td>1.05712</td>
-          <td>1.05728</td>
-        </tr>
-        <tr>
-          <td>Max</td>
-          <td>1.06289</td>
-          <td>1.06308</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="footer">
-      <p>EUR/USD pour la période de 24 heures se terminant le vendredi 6 décembre 2024, 23:59 UTC.</p>
+  <div class="sidebar">
+    <div class="test">
+      <ul>
+        <li><a routerLink="/dashboard" style="color: white; text-decoration: none"><i class="fas fa-tachometer-alt" style="color: white"></i> Dashboard</a></li>
+        <li><a routerLink="/cart" style="color: white; text-decoration: none"><i class="fas fa-credit-card" style="color: white"></i> Bank Card</a></li>
+        <li><a routerLink="/facture" style="color: white; text-decoration: none"><i class="fas fa-file-invoice" style="color: white"></i> Factures</a></li>
+        <li><i class="fas fa-chart-bar" style="color: white"></i> Analytics</li>
+        <li><i class="fas fa-bookmark" style="color: white"></i> Bookmarks</li>
+        <li><i class="fas fa-cog" style="color: white"></i> Settings</li>
+        <li><i class="fas fa-user" style="color: white"></i> Profile</li>
+        <li><i class="fas fa-sign-out-alt" style="color: white"></i> Logout</li>
+      </ul>
     </div>
   </div>
-</div>
-</body>
+  
+  <div class="content">
+    <div class="container">
+      <h1>Convertisseur des devises</h1>
+      <div class="separator"></div>
+      <div class="converter">
+        <div class="from">
+          <label for="fromCurrency" class="sr-only">Devise d'origine</label>
+          <div class="currency-selector">
+            <img [src]="getFlagUrl(carte.devise)" alt="Drapeau" class="flag">
+          </div>
+          <!-- <p aria-label="Montant à convertir">{{ portefeuille.solde }}</p> -->
+          <input type="number" [(ngModel)]="convertedAmount" placeholder="{{ carte.solde }}" readonly>
+        </div>
+  
+        <div class="switch">
+          <img src="assets/images/icons8-change-96.png" alt="Description of image" style="width: 100px; height: 100px; margin-right: 20px;" (click)="convert(toCurrency,carte)">
+        </div>
+  
+        <div class="to">
+          <label for="toCurrency" class="sr-only">Devise de destination</label>
+          <div class="currency-selector">
+            <img [src]="getFlagUrl(toCurrency)" alt="Drapeau" class="flag">
+            <select [(ngModel)]="toCurrency"  id="toCurrency" aria-label="Devise de destination">
+              <option value="USD">USD - Dollar américain</option>
+              <option value="EUR">EUR - Euro</option>
+              <option value="MAD">MAD - Dirham</option>
+            </select>
+          </div>
+        </div>
+      </div>
+  
+      <div class="info">
+        <p class="expected-balance">Solde attendu : {{expectedAmount()}} {{toCurrency}}</p>
+      </div>
+  
+      <div class="chart-container">
+        <canvas id="myChart"></canvas>
+      </div>
+  
+      <div class="details">
+        <table>
+          <thead>
+          <tr>
+            <th>Devise à vendre</th>
+            <th>Devise à acheter</th>
+            <th>Taux</th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let key of ['EUR', 'MAD', 'USD']">
+              <td>{{ fromCurrency }}</td>
+              <td>{{ key }}</td>
+              <td>{{ exchangeRates[key] }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  </body>

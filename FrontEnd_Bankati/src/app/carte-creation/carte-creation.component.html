@@ -1,0 +1,88 @@
+<body>
+    <div class="sidebar">
+        <div class="test">
+            <ul>
+              <li><a routerLink="/dashboard" style="color: white; text-decoration: none"><i class="fas fa-tachometer-alt" style="color: white"></i> Dashboard</a></li>
+              <li style="background-color: #3e8e41;"><a routerLink="/cart" style="color: white; text-decoration: none"><i class="fas fa-credit-card" style="color: white"></i> Bank Card</a></li>
+              <li><a routerLink="/facture" style="color: white; text-decoration: none"><i class="fas fa-file-invoice" style="color: white"></i> Factures</a></li>
+              <li><i class="fas fa-chart-bar" style="color: white"></i> Analytics</li>
+              <li><i class="fas fa-bookmark" style="color: white"></i> Bookmarks</li>
+              <li><i class="fas fa-cog" style="color: white"></i> Settings</li>
+              <li><i class="fas fa-user" style="color: white"></i> Profile</li>
+              <li><i class="fas fa-sign-out-alt" style="color: white"></i> Logout</li>
+            </ul>
+        </div>
+    </div>
+    <main class="content-area">
+        <div class="title">
+            <h1>Création Carte Virtuelle</h1>
+          <button class="button_back">
+            <svg height="16" width="16" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1024 1024"><path d="M874.690416 495.52477c0 11.2973-9.168824 20.466124-20.466124 20.466124l-604.773963 0 188.083679 188.083679c7.992021 7.992021 7.992021 20.947078 0 28.939099-4.001127 3.990894-9.240455 5.996574-14.46955 5.996574-5.239328 0-10.478655-1.995447-14.479783-5.996574l-223.00912-223.00912c-3.837398-3.837398-5.996574-9.046027-5.996574-14.46955 0-5.433756 2.159176-10.632151 5.996574-14.46955l223.019353-223.029586c7.992021-7.992021 20.957311-7.992021 28.949332 0 7.992021 8.002254 7.992021 20.957311 0 28.949332l-188.073446 188.073446 604.753497 0C865.521592 475.058646 874.690416 484.217237 874.690416 495.52477z"></path></svg>
+            <span class="button_back_text" (click)="goBack()">Retour</span>
+          </button>
+        </div>
+       <div class="main-card-container" >
+            <div class="bottom-row">
+               <div class="card-container" [ngClass]="getCardClass()">
+                 <div class="card">
+                    <img class="chip" src="/assets/images/chip.png"/>
+                    <img class="contactless" src="/assets/images/wifi-signal.png"/>
+                    <img class="visa"src="/assets/images/visa.png"/>
+                     <p class="card-number">***** ***** *****</p>
+                     <div class="arrow"></div>
+                     <p class="card-name">M John Doe</p>
+                     <p class="card-expire">Expire </p>
+                     <p class="bank-name">CVV *****</p>
+                  </div>
+              </div>
+               <div class="card-details-section">
+                <div class="form-container">
+                <form class="form">
+                    <p class="title_form">Créer</p>
+                    <p class="message">Veuillez Remplire les champs suivants</p> 
+                    <label>
+                      <select class="input" required="">
+                          <option value="" disabled selected>Selection le compte débiteur</option>
+                          <option value="option1">Option 1</option>
+                          <option value="option2">Option 2</option>
+                          <option value="option3">Option 3</option>
+                      </select>
+                  </label>
+  
+                  <label>
+                    <input [(ngModel)]="solde" type="number" id="solde" name="so" required class="input">
+                    <span>Montant du solde </span>
+                  </label> 
+  
+                <label>
+                  <select class="input" [(ngModel)]="devise" id="devise" name="devise" required>
+                      <option value="MAD">MAD - Dirham</option>
+                      <option value="USD">USD - Dollar</option>
+                      <option value="EUR">EUR - Euro</option>
+                  </select>
+              </label>
+  
+                    <div class="radio-input" >
+                      <label>
+                        <input type="radio" id="value-1" name="color" [(ngModel)]="color" value="1" />
+                        <span>Green</span>
+                      </label>
+                      <label>
+                        <input type="radio" id="value-2" name="value-radio" [(ngModel)]="color" value="2" />
+                        <span>Silver</span>
+                      </label>
+                      <label>
+                        <input type="radio" id="value-3" name="value-radio" [(ngModel)]="color" value="3" />
+                        <span>Gold</span>
+                      </label>
+                      <span class="selection"></span>
+                    </div>
+  
+                    <button class="submit" (click)="generer(solde,devise,portefeuille.id,color)">Génerer</button>
+                </form>
+                </div>
+               </div>
+            </div>
+       </div>
+    </main>
+  </body>

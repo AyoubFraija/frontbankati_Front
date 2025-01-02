@@ -1,11 +1,11 @@
 <body>
+  <div class="title">Gestionnaire de carte virtuelle</div>
   <div class="sidebar">
     <div class="test">
       <ul>
         <li><a routerLink="/dashboard" style="color: white; text-decoration: none"><i class="fas fa-tachometer-alt" style="color: white"></i> Dashboard</a></li>
         <li style="background-color: #3e8e41;"><a routerLink="/cart" style="color: white; text-decoration: none"><i class="fas fa-credit-card" style="color: white"></i> Bank Card</a></li>
         <li><a routerLink="/facture" style="color: white; text-decoration: none"><i class="fas fa-file-invoice" style="color: white"></i> Factures</a></li>
-        <li><a routerLink="/currency" style="color: white; text-decoration: none"><i class="fas fa-coins"></i> Converter</a></li>
         <li><i class="fas fa-chart-bar" style="color: white"></i> Analytics</li>
         <li><i class="fas fa-bookmark" style="color: white"></i> Bookmarks</li>
         <li><i class="fas fa-cog" style="color: white"></i> Settings</li>
@@ -14,55 +14,39 @@
       </ul>
     </div>
   </div>
+  <button class="button" type="button" (click)="navigateToCardCreation()">
+    <span class="button__text">New Card</span>
+    <span class="button__icon"><svg class="svg" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><line x1="12" x2="12" y1="5" y2="19"></line><line x1="5" x2="19" y1="12" y2="12"></line></svg></span>
+  </button>
 
-<!--  <div class="card-container">-->
-<!--    <div class="card">-->
-<!--      <img class="chip" src="/assets/images/chip.png"/>-->
-<!--      <img class="contactless" src="/assets/images/wifi-signal.png"/>-->
-<!--      <img class="visa"src="/assets/images/visa.png"/>-->
-<!--      <p class="card-number">0000 0000 0000 0000</p>-->
-<!--      <div class="arrow"></div>-->
-<!--      <p class="card-name">M John Doe</p>-->
-<!--      <p class="card-expire">Expire 05/23</p>-->
-<!--      <p class="bank-name">Bank 1337</p>-->
-<!--    </div>-->
-<!--  </div>-->
-  <div class="card-container-wrapper">
-    <div class="card-container blue">
-      <div class="card">
-        <img class="chip" src="/assets/images/chip.png"/>
-        <img class="contactless" src="/assets/images/wifi-signal.png"/>
-        <img class="visa"src="/assets/images/visa.png"/>
-        <p class="card-number">0000 0000 0000 0000</p>
-        <div class="arrow"></div>
-        <p class="card-name">M John Doe</p>
-        <p class="card-expire">Expire 05/23</p>
-        <p class="bank-name">Bank 1337</p>
-      </div>
-    </div>
-    <div class="card-container gray">
-      <div class="card">
-        <img class="chip" src="/assets/images/chip.png"/>
-        <img class="contactless" src="/assets/images/wifi-signal.png"/>
-        <img class="visa"src="/assets/images/visa.png"/>
-        <p class="card-number">0000 0000 0000 0000</p>
-        <div class="arrow"></div>
-        <p class="card-name">M John Doe</p>
-        <p class="card-expire">Expire 05/23</p>
-        <p class="bank-name">Bank 1337</p>
-      </div>
-    </div>
-    <div class="card-container gold">
-      <div class="card">
-        <img class="chip" src="/assets/images/chip.png"/>
-        <img class="contactless" src="/assets/images/wifi-signal.png"/>
-        <img class="visa"src="/assets/images/visa.png"/>
-        <p class="card-number">0000 0000 0000 0000</p>
-        <div class="arrow"></div>
-        <p class="card-name">M John Doe</p>
-        <p class="card-expire">Expire 05/23</p>
-        <p class="bank-name">Bank 1337</p>
-      </div>
-    </div>
+
+<div class = "card-container-wrapper">
+  <div *ngIf="cartes.length === 0" class="card_alert">
+    <span
+      ><svg viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="m569.517 440.013c18.458 31.994-4.711 71.987-41.577 71.987h-479.886c-36.937 0-59.999-40.055-41.577-71.987l239.946-416.028c18.467-32.009 64.72-31.951 83.154 0zm-281.517-86.013c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346 7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"
+        ></path>
+      </svg>
+      <p>
+        Aucune carte virtuelle<br />
+        Vous n'avez pas encore de carte virtuelle.
+        Cliquez sur le bouton "New card" pour en créer une.
+      </p></span
+    >
   </div>
+
+<div *ngFor="let carte of cartes; let i = index" [ngClass]="getCardClass(carte.color)" class="card-container" (click)="navigateToCardDetail(carte, i)">
+  <div class="card">
+    <img class="chip" src="/assets/images/chip.png"/>
+    <img class="contactless" src="/assets/images/wifi-signal.png"/>
+    <img class="visa" src="/assets/images/visa.png"/>
+    <p class="card-number">{{ format(carte.numeroCarte) }}</p>
+    <div class="arrow"></div>
+    <p class="card-name">Jhon Deluca</p>
+    <p class="card-expire">Expire {{ carte.dateExpiration }}</p>
+    <p class="bank-name">CVV {{ carte.cvv }}</p>
+  </div>
+</div>
+</div>
 </body>

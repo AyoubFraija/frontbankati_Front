@@ -15,6 +15,11 @@ import { CreancierComponent } from './creancier/creancier.component';
 import {Routes} from "@angular/router";
 import {AuthGuard} from "./service/AuthGuard.service";
 import {CreateClientGuard} from "./guards/create-client.guard";
+import { CartDetailsComponent } from './cart-details/cart-details.component';
+import { CarteCreationComponent } from './carte-creation/carte-creation.component';
+import { CryptoWalletComponent } from './crypto-wallet/crypto-wallet.component';
+import { CardFormComponent } from './card-form/card-form.component';
+
 
 export const routes: Routes = [
   {
@@ -96,4 +101,12 @@ export const routes: Routes = [
     path: 'creancier',
     component: CreancierComponent
   },
+  { path: 'card-detail', component: CartDetailsComponent },
+  {
+    path: 'carteForm', component: CarteCreationComponent
+  },
+  {
+    path:'cryptoWallet',component: CryptoWalletComponent
+  },
+  { path:'form', component:CardFormComponent},
 ];

@@ -1,23 +1,38 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   padding: 20px;
   box-sizing: border-box;
   margin: 0;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center items horizontally */
   background: #d4edda;
   font-family: 'Arial', sans-serif;
-  min-height: 100vh;
 }
-
-/* Sidebar styles */
+.title {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 40px;
+  margin-right: 900px;
+  font-family: 'Roboto', serif;
+  font-size: 4rem;
+  font-weight: bold;
+  color: #043686;
+}
+/* Sidebar styles (no changes here) */
 .sidebar {
-  width: 320px; /* Increased width */
+  width: 320px;
   background-color: #343a40;
   color: white;
-  padding: 25px; /* Increased padding */
+  padding: 25px;
   height: 100vh;
   overflow-y: auto;
   position: fixed;
@@ -38,7 +53,7 @@ body {
 }
 
 .sidebar li {
-  padding: 20px 0; /* Increased padding */
+  padding: 20px 0;
   border-bottom: 1px solid #444;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -49,42 +64,33 @@ body {
 }
 
 .sidebar li i {
-  margin-right: 15px; /* Larger icons */
+  margin-right: 15px;
   font-size: 1.2em;
 }
 
+/* Card Container (keep the styles) */
 .card-container {
-  background: #34495e;
-  border-radius: 20px;
-  width: 100%;
-  max-width: 600px;
-  position: relative;
-  box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.1);
-  border-bottom: 6px solid #2c3e50;
-  border-right: 6px solid #2c3e50;
+    background: #34495e;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 600px;
+    position: relative;
+    box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.1);
+    border-bottom: 6px solid #2c3e50;
+    border-right: 6px solid #2c3e50;
+    transition: 0.5s transform, 0.5s box-shadow;
+    margin: 10px; 
 }
 
-.card {
-  position: relative;
-  padding-top: 60%;
-  overflow: hidden;
-}
-.card-container {
-  background: #34495e;
-  border-radius: 20px;
-  width: 100%;
-  max-width: 600px;
-  position: relative;
-  box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.1);
-  border-bottom: 6px solid #2c3e50;
-  border-right: 6px solid #2c3e50;
-  transition: 0.5s transform, 0.5s box-shadow;
-  margin: 10px; /* Add spacing between cards */
-  flex: 1; /* Allow cards to take equal space */
-  min-width: 0; /* Prevent cards from shrinking too much */
 
+/* Card Wrapper (Updated for vertical layout) */
+.cards-wrapper {
+  display: flex; /* Use flexbox */
+  flex-direction: column; /* Stack children vertically */
+  align-items: center;  /* Center items horizontally (optional)*/
+  margin-left: 300px;
 }
-
+/*Responsive styles*/
 @media screen and (max-width: 580px){
   :root {
     font-size: 12px;
@@ -133,6 +139,8 @@ body {
     border-right:8px solid white;
   }
 }
+
+/* Card styles (no changes here) */
 .card {
   position: relative;
   padding-top: 60%;
@@ -245,29 +253,143 @@ body {
 }
 
 .card-container.blue {
-  background-color: #5cb85c; /* Example blue color */
+  background-color: #5cb85c;
   border-bottom: 6px solid #4cae4c;
   border-right: 6px solid #4cae4c;
 }
 
 .card-container.gray {
-  background-color: #99a3a4; /* Example gray color */
+  background-color: #C0C0C0;
   border-bottom: 6px solid #888;
   border-right: 6px solid #888;
 }
 
 .card-container.gold {
-  background-color: #f0ad4e; /* Example gold color */
-  border-bottom: 6px solid #e7962d;
-  border-right: 6px solid #e7962d;
+  background-color: #d4af37;
+  border-bottom: 6px solid #e0b526;
+  border-right: 6px solid #e0b526;
 }
+
 .card-container-wrapper {
-  display: flex; /* Use Flexbox for horizontal alignment */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 50px;  /* Use Flexbox for horizontal alignment */
   width: 100%;
   max-width: 1800px; /* Adjust as needed for card width */
-  margin-top: 20px; /* Add some spacing from sidebar */
-  display: flex;
+  margin-top: 200px; /* Add some spacing from sidebar */
   justify-content: center; /* Centers items horizontally */
   align-items: center; /* Centers items vertically (optional) */
   margin-left: 300px;
+}
+
+.add-card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.add-card-container img {
+  width: 150px;
+  height: 150px;
+}
+
+.create-card-text {
+  margin-top: 50px;
+  color: black;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: bold;
+  font-size: 33px;
+}
+.button {
+  --main-focus: #2d8cf0;
+  --font-color: #323232;
+  --bg-color-sub: #dedede;
+  --bg-color: #eee;
+  --main-color: #323232;
+  position: relative;
+  width: 200px; /* Augmenté */
+  height: 60px; /* Augmenté */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border: 2px solid var(--main-color);
+  box-shadow: 4px 4px var(--main-color);
+  background-color: var(--bg-color);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 30px;
+  margin-bottom: -150px;
+  margin-left: 1930px;
+}
+
+.button, .button__icon, .button__text {
+  transition: all 0.3s;
+}
+
+.button .button__text {
+  transform: translateX(30px); /* Ajusté pour rester proportionnel */
+  color: var(--font-color);
+  font-weight: 600;
+  font-size: 16px; 
+}
+
+.button .button__icon {
+  position: absolute;
+  transform: translateX(140px); /* Ajusté */
+  height: 100%;
+  width: 60px; /* Augmenté */
+  background-color: var(--bg-color-sub);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button .svg {
+  width: 24px; /* Augmenté */
+  fill: var(--main-color);
+}
+
+.button:hover .button__icon {
+  width: 198px; /* Ajusté pour correspondre à la nouvelle largeur du bouton */
+  transform: translateX(0);
+}
+
+.card_alert {
+  width: 600px;
+  padding-right: 10px;
+  height: fit-content;
+  margin-top: 150px;
+  margin-left: 600px;
+  padding-bottom: 12px;
+  background: lightgrey;
+  border-left-style: solid;
+  border-left-color: red;
+  border-left-width: 5px;
+  border-radius: 15px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  background: linear-gradient(to right, #f7575756, #f7575725 50%, #f7575738);
+}
+
+.card_alert svg {
+  height: 40px;
+  padding-left: 10px;
+  padding-top: 12px;
+  fill: red;
+  float: left;
+}
+
+.card_alert p {
+  float: left;
+  padding-top: 13px;
+  padding-left: 10px;
+  color: white;
+  font-size: 20px;
+}
+
+.card_alert span {
+  display: flex;
+  align-items: left;
 }

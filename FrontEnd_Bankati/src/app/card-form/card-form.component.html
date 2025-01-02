@@ -1,0 +1,39 @@
+<body>
+    <div class="sidebar">
+      <div class="test">
+        <ul>
+          <li><a routerLink="/dashboard" style="color: white; text-decoration: none"><i class="fas fa-tachometer-alt" style="color: white"></i> Dashboard</a></li>
+          <li style="background-color: #3e8e41;"><a routerLink="/cart" style="color: white; text-decoration: none"><i class="fas fa-credit-card" style="color: white"></i> Bank Card</a></li>
+          <li><a routerLink="/facture" style="color: white; text-decoration: none"><i class="fas fa-file-invoice" style="color: white"></i> Factures</a></li>
+          <li><i class="fas fa-chart-bar" style="color: white"></i> Analytics</li>
+          <li><i class="fas fa-bookmark" style="color: white"></i> Bookmarks</li>
+          <li><i class="fas fa-cog" style="color: white"></i> Settings</li>
+          <li><i class="fas fa-user" style="color: white"></i> Profile</li>
+          <li><i class="fas fa-sign-out-alt" style="color: white"></i> Logout</li>
+        </ul>
+      </div>
+    </div>
+  
+    <div class="form-container">
+      <form >
+        <img src="assets/images/icons8-credit-card-100.png" alt="Carte Image" class="form-image">
+        <h2>Création Crypto-Wallet</h2>
+        <div class="form-group">
+          <label for="devise">Devise</label>
+          <select [(ngModel)]="devise" id="devise" name="devise" required>
+            <option value="BTC">BTC - Bitcoin</option>
+            <option value="ETH">ETH - Ethenum</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="solde">Solde</label>
+          <input [(ngModel)]="somme" type="number" id="somme" name="somme" required>
+        </div>
+        <div class="form-group">
+          <label for="solde">Mot de Passe de votre Wallet</label>
+          <input [(ngModel)]="mdp" type="password" id="mdp" name="mdp" required>
+        </div>
+        <button type="submit" (click)="creer(somme,devise,mdp)" >Créer</button>
+      </form>
+    </div>
+  </body>

@@ -17,6 +17,9 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import {ChangePasswordComponent} from "./change-password/change-password.component";
 import {CreateClientComponent} from "./create-client/create-client.component";
 import {AuthInterceptor} from "./service/auth.interceptor";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatDialogModule} from "@angular/material/dialog";
+import {PortefeuilleService} from "./service/PortefeuilleService.service";
 
 @NgModule({
   imports: [
@@ -32,9 +35,11 @@ import {AuthInterceptor} from "./service/auth.interceptor";
     ChangePasswordComponent,
     RouterModule.forRoot(routes),
     CommonModule,
-    CreateClientComponent
+    CreateClientComponent,
+    MatSnackBarModule,
+    MatDialogModule
   ],
-  providers: [
+  providers: [PortefeuilleService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
