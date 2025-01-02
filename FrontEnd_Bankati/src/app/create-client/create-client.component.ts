@@ -97,10 +97,10 @@ export class CreateClientComponent implements OnInit {
         next: (response) => {
           this.success = 'Client créé avec succès';
           this.loading = false;
+          form.resetForm();
           this.closeCreateClientModal();
           this.clients.push(response);
           this.cdRef.detectChanges();
-          form.resetForm();
           this.loadClients();  // Recharger la liste des clients après la création
         },
         error: (error) => {
