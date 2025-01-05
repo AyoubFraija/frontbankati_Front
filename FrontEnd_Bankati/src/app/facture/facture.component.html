@@ -43,54 +43,9 @@
         </div>
       </header>
 
-      <section class="invoice-section">
+      <!-- <section class="invoice-section">
         <h2 style="text-align: center; margin-bottom: 50px">Consultez et réglez vos factures dues</h2>
-        <!-- <table>
-        <thead>
-        <tr>
-          <th></th>
-          <th>Paiement</th>
-          <th>Restant dû</th>
-          <th>Référence</th>
-          <th>Date d'émission</th>
-          <th>Date d'échu</th>
-          <th>Statut</th>
-          <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td><input type="checkbox" id="chk1"></td>
-          <td>0,00 €</td>
-          <td>5 000 € / 5 000 €</td>
-          <td>#1234</td>
-          <td>01/09/2023</td>
-          <td>01/10/2023</td>
-          <td class="due"><span>À PAYER</span></td>
-          <td><i class="fas fa-search"></i></td>
-        </tr>
-        <tr>
-          <td><input type="checkbox" id="chk2"></td>
-          <td>0,00 €</td>
-          <td>5 000 € / 5 000 €</td>
-          <td>#5678</td>
-          <td>01/08/2023</td>
-          <td>01/09/2023</td>
-          <td class="due"><span>À PAYER</span></td>
-          <td><i class="fas fa-search"></i></td>
-        </tr>
-        <tr>
-          <td><input type="checkbox" id="chk3"></td>
-          <td>3 000,00 €</td>
-          <td>3 000 € / 5 000 €</td>
-          <td>#9101</td>
-          <td>01/06/2023</td>
-          <td>01/09/2023</td>
-          <td class="partial"><span>PARTIEL</span></td>
-          <td><i class="fas fa-search"></i></td>
-        </tr>
-        </tbody>
-      </table> -->
+
 
         <table>
           <thead>
@@ -123,11 +78,65 @@
 
 
             </tr>
+            <ng-container *ngIf="!isLoading; else loading">
+              Recharger
+            </ng-container>
+            <ng-template #loading>
+              <div class="spinner"></div>
+            </ng-template>
           </tbody>
 
         </table>
         <button id="payButton">Payer les factures sélectionnées</button>
+      </section> -->
+
+      <section class="invoice-section">
+        <h2 style="text-align: center; margin-bottom: 50px">
+          Consultez et réglez vos factures dues
+        </h2>
+
+        <!-- Show Spinner if Data is Loading -->
+        <div *ngIf="isLoading; else tableContent" class="loading-container">
+          <div class="spinner"></div>
+        </div>
+
+        <!-- Table Content -->
+        <ng-template #tableContent>
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Montant</th>
+                <th>Fournisseur</th>
+                <th>Date d'écheance</th>
+                <th>Statut</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let facture of factures">
+                <td>
+                  <input type="checkbox" [id]="'chk' + facture.id" />
+                </td>
+                <td>{{ facture.montant }} DH</td>
+                <td>{{ facture.fournisseur.nom }}</td>
+                <td>{{ facture.dateLimite | date: 'dd/MM/yyyy' }}</td>
+                <td><span>{{ facture.statut }}</span></td>
+                <td *ngIf="facture.statut.toString() === 'PAYÉE'; else nonPaye">
+                  <span>-</span>
+                </td>
+                <ng-template #nonPaye>
+                  <button class="btn btn-primary" (click)="payerFacture(facture)">
+                    Payer
+                  </button>
+                </ng-template>
+              </tr>
+            </tbody>
+          </table>
+          <button id="payButton">Payer les factures sélectionnées</button>
+        </ng-template>
       </section>
+
     </main>
   </div>
 </body>

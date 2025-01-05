@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Facture } from '../model/Facture.model';
+import { Fournisseur } from '../model/Fournisseur.model';
 
 
 
@@ -27,6 +28,10 @@ export class FactureService {
     recupererFactures(): Observable<Facture[]> {
         return this.http.get<Facture[]>(`${this.baseUrl}`);
     }
+    getFacturesByFournisseurId(id: number): Observable<Facture[]> {
+        return this.http.get<Facture[]>(`${this.baseUrl}/fournisseurs/${id}`);
+
+    }
 
     // Update an existing facture
     mettreAJourFacture(id: number, factureDetails: Facture): Observable<Facture> {
@@ -42,4 +47,10 @@ export class FactureService {
     marquerFacturePayee(id: number): Observable<Facture> {
         return this.http.put<Facture>(`${this.baseUrl}/${id}/payee`, null);
     }
+    // Mark a facture as paid
+    getCreanciers(): Observable<Fournisseur[]> {
+        return this.http.get<Fournisseur[]>(`http://localhost:8085/api/fournisseurs`);
+    }
+   
+
 }

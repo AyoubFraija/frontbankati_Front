@@ -1,7 +1,14 @@
 import { Component, HostListener } from '@angular/core';
 import { CommonModule, NgClass } from "@angular/common";
 import { FormsModule } from "@angular/forms";
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
+import { PaiementFactureService } from '../service/PaiementFacture.service';
+import { PaiementFacture } from '../model/PaiementFacture.model';
+import { Facture } from '../model/Facture.model';
+import { FactureService } from '../service/FactureService.service';
+import { StatutFacture } from '../model/enum/StatutFacture.enum';
+import { TypeService } from '../model/enum/TypeService.enum';
+import { Fournisseur } from '../model/Fournisseur.model';
 
 @Component({
   selector: 'app-recharge',
@@ -35,6 +42,8 @@ export class RechargeComponent {
   ];
   selectedOffer: string = '';
   account: string = '';
+  selectedFournisseurId: number | null = null;
+
 
   openOffersModal() {
     if (!this.operator) {
@@ -57,25 +66,61 @@ export class RechargeComponent {
   selectOffer(offer: string) {
     this.selectedOffer = offer;
   }
+  isLoading = false;
+
   rechargePhone() {
-    if (!this.selectedOffer) {
-      alert('Veuillez sélectionner une offre.');
-      return;
-    }
-    if (!this.account) {
-      alert('Veuillez choisir un compte.');
-      return;
-    }
+    this.isLoading = true;
 
     this.isModalOpen = false;
-    console.log('Recharge initiée:');
-    console.log('Opérateur:', this.operator);
-    console.log('Numéro de Téléphone:', this.phoneNumber);
-    console.log('Montant de Recharge:', this.rechargeAmount);
-    console.log('Offre sélectionnée:', this.selectedOffer);
-    console.log('Account Selected: ', this.account);
-    alert('Recharge effectuée avec succès!');
+    // console.log('Recharge initiée:');
+    // console.log('Opérateur:', this.operator);
+    // console.log('Numéro de Téléphone:', this.phoneNumber);
+    // console.log('Montant de Recharge:', this.rechargeAmount);
+    // console.log('Offre sélectionnée:', this.selectedOffer);
+    // console.log('Account Selected: ', this.account);
+    // alert('Recharge effectuée avec succès!');
+
     // Add your recharge logic here
+    const paiementFacture: PaiementFacture = {
+      compte: {
+        id: 1,
+        solde: 0,
+        devise: '',
+        idUser: 0,
+        rib: ''
+      },
+      facture: {
+        type_facture: TypeService.RECHARGE,
+        montant: this.rechargeAmount !== null ? this.rechargeAmount : 0,
+        id: 0,
+        dateEmission: '',
+        dateEcheance: '',
+        fournisseur: {
+          id: this.operator !== null ? parseInt(this.operator, 10) : 0,
+          nom: '',
+          imageUrl: '',
+          category: ''
+        },
+        dateLimite: '',
+        statut: StatutFacture.EN_ATTENTE
+      }
+    };
+    console.log("Paiement Facture", paiementFacture);
+
+    this.paiementFactureService.recharge(paiementFacture).subscribe(response => {
+      console.log('Paiement effectué avec succès', response);
+      alert('Paiement effectué avec succès');
+
+      this.router.navigate([this.router.url]);
+      this.isLoading = false; // Stop loading on success
+
+
+    }, error => {
+      console.error('Erreur lors du paiement', error);
+      alert('Erreur lors du paiement');
+      this.isLoading = false;
+    });
+
   }
   @HostListener('window:scroll', ['$event'])
   onScroll(event: any) {
@@ -94,9 +139,67 @@ export class RechargeComponent {
     this.isFactureVisible = true;
     this.isHistoriqueVisible = false;
   }
+  ngOnInit(): void {
+    this.loadCreanciers();
+  }
+  creditors: Fournisseur[] = [];
 
+  loadCreanciers(): void {
+    this.factureService.getCreanciers().subscribe(
+      (data: Fournisseur[]) => {
+        this.creditors = data.filter(fournisseur => fournisseur.category == 'internet_purchases').
+          map(fournisseur => ({
+            id: fournisseur.id,
+            category: fournisseur.category,
+            imageUrl: `assets/facture/${fournisseur.imageUrl}`,
+            nom: fournisseur.nom
+          }));
+
+
+      },
+      (error) => {
+        console.error('Error fetching creditors:', error);
+      }
+    );
+  }
   showHistorique() {
     this.isFactureVisible = false;
     this.isHistoriqueVisible = true;
   }
+  constructor(private factureService: FactureService, private paiementFactureService: PaiementFactureService, private router: Router
+  ) { }
+  // recharger(): void {
+
+  //   const paiementFacture: PaiementFacture = {
+  //     compte: {
+  //       id: 1,
+  //       solde: 0,
+  //       devise: '',
+  //       idUser: 0
+  //     },
+  //     facture: {
+  //       id: 0,
+  //       dateEmission: '',
+  //       dateEcheance: '',
+  //       fournisseur: {
+  //         id: 0, nom: '',
+  //         imageUrl: '',
+  //         category: ''
+  //       },
+  //       montant: this.rechargeAmount !== null ? this.rechargeAmount : 0,
+  //       dateLimite: '',
+  //       statut: StatutFacture.EN_ATTENTE,
+  //       type_facture: TypeService.RECHARGE
+  //     },
+  //   };
+
+  //   this.paiementFactureService.recharge(paiementFacture).subscribe(response => {
+  //     console.log('Paiement effectué avec succès', response);
+  //     this.router.navigate([this.router.url]);
+
+
+  //   }, error => {
+  //     console.error('Erreur lors du paiement', error);
+  //   });
+  // }
 }

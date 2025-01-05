@@ -55,13 +55,77 @@
         </select>
       </div>
       <div class="creditor-grid">
-        <div class="creditor-card" *ngFor="let creditor of filteredCreditors" [routerLink]="'/facture'"
-          style="cursor: pointer;">
-          <img [src]="creditor.image" [alt]="creditor.name" />
-          <h3>{{ creditor.name }}</h3>
-          <p>{{ creditor.description }}</p>
+        <div class="creditor-card" *ngFor="let creditor of filteredCreditors" style="cursor: pointer;">
+          <img [src]="creditor.imageUrl" [alt]="creditor.nom" (click)="openModal(creditor.id)" />
+
+          <h3>{{ creditor.nom }}</h3>
+          <!-- <p>{{ creditor.description }}</p> -->
+        </div>
+      </div>
+      <!-- Modal -->
+      <div *ngIf="isModalOpen" class="modal-backdrop">
+        <div class="modal">
+          <button class="close-btn" (click)="closeModal()">✖</button>
+          <h2>Factures for {{ selectedCreditor?.nom }}</h2>
+          <ul *ngIf="factures.length > 0">
+            <!-- <section class="invoice-section"> -->
+            <!-- <h2 style="text-align: center; margin-bottom: 50px">Consultez et réglez vos factures dues</h2> -->
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>
+                    <input type="checkbox" id="selectAll" (change)="toggleSelectAll($event)">
+                  </th>
+                  <th>Montant</th>
+                  <th>Fournisseur</th>
+                  <th>Date d'échéance</th>
+                  <th>Statut</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Loop through factures and pass each to the child component -->
+                <tr *ngFor="let facture of factures">
+                  <td><input type="checkbox" [id]="'chk' + facture.id"></td>
+                  <td>{{ facture.montant }} DH</td>
+                  <td>{{ facture.fournisseur.nom }}</td>
+                  <td>{{ facture.dateLimite | date:'dd/MM/yyyy' }}</td>
+                  <td><span>{{ facture.statut }}</span></td>
+                  <td *ngIf="facture.statut.toString() === 'PAYÉE'; else nonPaye">
+                    <span>-</span>
+
+                  </td>
+                  <ng-template #nonPaye>
+                    <td>
+
+
+                      <button class="submit-btn" [disabled]="isLoading" (click)="payerFacture(facture)">
+                        <ng-container *ngIf="!isLoading; else loading">
+                          Payer
+                        </ng-container>
+                        <ng-template #loading>
+                          <div class="spinner"></div>
+                        </ng-template>
+                      </button>
+
+
+                    </td>
+
+                  </ng-template>
+                </tr>
+              </tbody>
+            </table>
+
+
+
+            <!-- </section> -->
+          </ul>
+          <p *ngIf="factures.length === 0">No factures available.</p>
         </div>
       </div>
     </div>
   </div>
 </body>
+
+<!-- Modal Component -->
+<!-- <app-modal-factures *ngIf="isModalOpen" [factures]="factures" (closeModal)="closeModal()"></app-modal-factures> -->
